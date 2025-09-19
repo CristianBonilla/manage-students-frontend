@@ -1,12 +1,30 @@
 {
   "name": "manage-students-frontend",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": {
+    "name": "Cristian Bonilla",
+    "email": "cristian10camilo95@gmail.com",
+    "url": "https://www.linkedin.com/in/cristian-bonilla95"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CristianBonilla/manage-students-frontend.git"
+  },
+  "license": "MIT",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=22.14.0",
+    "npm": ">=10.9.2"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "coverage": "ng test --watch=false --code-coverage",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
