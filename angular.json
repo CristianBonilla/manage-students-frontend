@@ -37,12 +37,11 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-            ],
+            "styles": [],
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "pro": {
               "budgets": [
                 {
                   "type": "initial",
@@ -55,27 +54,76 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.pro.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true
             },
-            "development": {
+            "stg": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stg.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "outputHashing": "none",
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "pro"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": {
-              "buildTarget": "manage-students-frontend:build:production"
+            "pro": {
+              "buildTarget": "manage-students-frontend:build:pro"
             },
-            "development": {
-              "buildTarget": "manage-students-frontend:build:development"
+            "stg": {
+              "buildTarget": "manage-students-frontend:build:stg"
+            },
+            "dev": {
+              "buildTarget": "manage-students-frontend:build:dev"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "dev",
+          "options": {
+            "port": 14988
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -96,8 +144,7 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-            ],
+            "styles": [],
             "scripts": []
           }
         }
