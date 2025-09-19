@@ -1,0 +1,97 @@
+.table-container {
+
+  h4,
+  h5 {
+    line-height: 1;
+  }
+
+  .table {
+
+    thead th,
+    tbody th,
+    tbody td {
+      vertical-align: middle;
+
+      &:not(.table-actions) {
+        max-width: 180px;
+      }
+
+      &.miw {
+
+        &-18 {
+          min-width: 180px;
+        }
+
+        &-25 {
+          min-width: 250px;
+        }
+      }
+    }
+  }
+
+  .table-actions {
+
+    &__content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    a,
+    button {
+      display: inline-block;
+      margin: 0 .25rem;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .table-container {
+
+    caption {
+      display: none;
+    }
+  }
+}
+
+.card .card-actions {
+
+  a,
+  button {
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.backdrop-white {
+  background-color: #FFFFFF !important;
+}
+
+.text-line-clampin {
+  overflow: hidden;
+  line-height: 1.2rem;
+  display: -webkit-box;
+  display: -moz-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.padding-transition {
+  transition-property: padding-left, padding-right;
+  transition-duration: .2s, .2s, .35s;
+  transition-timing-function: linear, linear, ease;
+}

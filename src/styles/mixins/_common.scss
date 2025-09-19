@@ -1,0 +1,8 @@
+@mixin bar-animation($type) {
+  -webkit-animation: $type 500ms linear 0s;
+  -moz-animation: $type 500ms linear 0s;
+  animation: $type 500ms 0s;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}

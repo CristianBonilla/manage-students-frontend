@@ -1,0 +1,25 @@
+$sans-serif: 'Roboto', 'Helvetica', 'Arial', sans-serif !default;
+
+$sidebar-min-width: 80px !default;
+$sidebar-width: 260px !default;
+
+$main-panel-width: calc(100% - #{ $sidebar-width }) !default;
+$main-panel-width-max: calc(100% - #{ $sidebar-min-width }) !default;
+
+$text-size: 1rem !default;
+
+$black-color: #3C4858 !default;
+$white-color: #FFFFFF !default;
+$background-color: #F6F6F6 !default;
+$footer-text-color: #8F8F8F !default;
+$sidebar-item-color: rgb(179, 39, 39) !default;
+
+$sidebar-item-shadow: rgba(39, 48, 176, 0.4) !default;
+
+$item-icon-width: 36px !default;
+
+$topbar-x: topbar-x !default;
+$topbar-back: topbar-back !default;
+
+$bottombar-x: bottombar-x !default;
+$bottombar-back: bottombar-back !default;

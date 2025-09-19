@@ -1,0 +1,255 @@
+@media (max-width: 767px) {
+  .main-panel {
+    width: 100%;
+    transition: all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1);
+  }
+
+  .navbar {
+
+    &.fixed-top {
+      width: 100%;
+
+      [class*="container-"] {
+        transition: all 0.50s, cubic-bezier(0.685, 0.0473, 0.346, 1);
+      }
+    }
+
+    .navbar-toggle {
+      @include toggled();
+    }
+  }
+
+  .sidebar {
+    display: block;
+    height: 100vh;
+    right: 0;
+    left: auto;
+    z-index: 1032;
+    visibility: visible;
+    overflow-y: visible;
+    box-shadow: none;
+    transform: translate3d($sidebar-width, 0, 0);
+    transition: all .33s cubic-bezier(0.685, 0.0473, 0.346, 1);
+
+    &_logo {
+      position: relative;
+      z-index: 4;
+
+      &-minimize {
+        display: none;
+      }
+    }
+
+    &_wrapper {
+      padding-bottom: 60px;
+    }
+  }
+
+  .close-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.35);
+    content: '';
+    z-index: 9999;
+    overflow: hidden;
+    outline: 0;
+    opacity: 0;
+    transition: all .33s ease-in;
+
+    &.visible {
+      opacity: 1;
+    }
+  }
+
+  .nav-open {
+    overflow: hidden;
+
+    .main-panel {
+      left: 0;
+      transform: translate3d(-($sidebar-width), 0, 0);
+    }
+
+    .sidebar {
+      transform: translate3d(0, 0, 0);
+
+      @include shadow-left();
+    }
+
+    .navbar.fixed-top [class*="container-"] {
+      // transform: translate3d($sidebar-width, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+
+    .close-layer {
+      transform: translate3d(-($sidebar-width), 0, 0);
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar .navbar-toggle {
+    display: none;
+  }
+
+  .sidebar-mini {
+
+    .main-panel {
+      width: $main-panel-width-max;
+      right: 0;
+      left: auto;
+    }
+
+    .navbar {
+
+      &.fixed-top {
+        width: $main-panel-width-max;
+        right: 0;
+        left: auto;
+      }
+
+      // .navbar-toggle {
+      //   display: none;
+      // }
+    }
+
+    .sidebar {
+      display: block;
+      z-index: 1030;
+
+      &,
+      &_wrapper {
+        width: $sidebar-min-width;
+
+        .nav li>a p {
+          opacity: 0;
+          transform: translate3d(-25px, 0, 0);
+        }
+      }
+
+      &_logo {
+
+        &-normal {
+          opacity: 0;
+          transform: translate3d(-25px, 0, 0);
+        }
+
+        &-minimize {
+          opacity: 0;
+        }
+
+        .visible-on-regular {
+          display: none;
+        }
+
+        .visible-on-mini {
+          display: inline-block;
+        }
+      }
+
+      &_user {
+
+        &-info>p {
+          opacity: 0;
+          transform: translate3d(-25px, 0, 0);
+        }
+      }
+    }
+
+    .sidebar:hover {
+
+      &,
+      .sidebar_wrapper {
+        width: $sidebar-width;
+      }
+
+      .sidebar_wrapper {
+
+        .nav li>a p {
+          opacity: 1;
+          transform: translate3d(0, 0, 0);
+        }
+      }
+
+      .sidebar_logo {
+
+        &-normal {
+          opacity: 1;
+          transform: translate3d(0, 0, 0);
+        }
+
+        &-minimize {
+          opacity: 1;
+        }
+      }
+
+      .sidebar_user {
+
+        &-info>p {
+          opacity: 1;
+          transform: translate3d(0, 0, 0);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar {
+
+    .navbar-toggler-bar {
+      display: block;
+      position: relative;
+      width: 22px;
+      height: 1px;
+      border-radius: 1px;
+      background-color: #888888;
+
+      &+.navbar-toggler-bar {
+        margin-top: 7px;
+      }
+
+      &+.navbar-toggler-bar.navbar-kebab {
+        margin-top: 3px !important;
+      }
+    }
+
+    .container-fluid {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    .navbar-nav {
+
+      // .nav-item:first-child {
+      //   margin-top: 10px;
+      // }
+
+      .nav-item:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+      .nav-link {
+        margin-left: auto;
+        padding: .5rem .4rem;
+
+        fa-icon {
+          display: inline-block;
+          margin-right: .25rem;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  body:not(.sidebar-mini) {
+
+    .padding-transition {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+}

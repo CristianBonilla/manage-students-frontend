@@ -1,0 +1,25 @@
+.os {
+
+  &-scrollbar {
+    $self: &;
+    transition: all .3s ease-in-out !important;
+
+    &-horizontal {
+      height: 10px;
+
+      &.active,
+      &:hover {
+        height: 12.5px;
+      }
+    }
+
+    &-vertical {
+      width: 10px;
+
+      &.active,
+      &:hover {
+        width: 12.5px;
+      }
+    }
+  }
+}

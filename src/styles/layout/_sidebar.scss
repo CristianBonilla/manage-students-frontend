@@ -1,0 +1,311 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  z-index: 9999;
+  width: $sidebar-width;
+  background-color: $white-color;
+
+  @include shadow-right();
+
+  &_logo {
+    padding: .5rem .7rem;
+    margin: 0;
+    position: relative;
+    z-index: 4;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 15px;
+      height: 1px;
+      width: calc(100% - 30px);
+      background-color: rgba(180, 180, 180, .3);
+    }
+
+    &-text {
+      text-transform: uppercase;
+      padding: .5rem 0;
+      display: inline-block;
+      font-size: 18px;
+      color: $black-color;
+      white-space: nowrap;
+      font-weight: 400;
+      overflow: hidden;
+      display: block;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+        color: $black-color;
+      }
+    }
+
+    &-mini
+    &-normal {
+      cursor: pointer;
+      transition: all 300ms ease;
+    }
+
+    &-mini {
+      opacity: 1;
+      float: left;
+      width: $item-icon-width;
+      text-align: center;
+      margin-left: 12px;
+      margin-right: 12px;
+      line-height: 1;
+
+      figure {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        margin: 0;
+
+        >img {
+          width: auto;
+          max-width: 100%;
+          max-height: $item-icon-width;
+        }
+      }
+    }
+
+    &-normal {
+      display: block;
+      opacity: 1;
+      font-size: .9rem;
+      font-weight: bold;
+      // padding: 0;
+      margin: .5488122rem 0;
+
+      line-height: 1.3em;
+      // height: 2.6em;  /* height is 2x line-height, so two lines will display */
+      overflow: hidden;   /* prevents extra lines from being visible */
+      white-space: normal;
+      // text-overflow: ellipsis;
+      width: calc(100% - 100px);
+      // -----
+      padding: .608rem 0;
+    }
+
+    &-minimize {
+      position: absolute;
+      right: .7rem;
+      top: .5rem;
+      opacity: 1;
+      transition: all 300ms ease;
+
+      button {
+        padding: 0;
+        cursor: default !important;
+        background-color: transparent;
+        color: #888888;
+        border: 1px solid #888888;
+        border-radius: 30px;
+        height: 2.375rem;
+        min-width: 2.375rem;
+        width: 2.375rem;
+        padding: 0;
+        font-size: 0.9375rem;
+        overflow: hidden;
+        position: relative;
+        line-height: normal;
+        margin: .53125rem 1px;
+        user-select: none;
+
+        &,
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .visible-on-regular {
+      display: inline-block;
+    }
+
+    .visible-on-mini {
+      display: none;
+    }
+  }
+
+  &_user {
+    padding-bottom: 15px;
+    margin: 15px auto 0;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 15px;
+      height: 2px;
+      width: calc(100% - 30px);
+      background-color: rgba(180, 180, 180, 0.3);
+    }
+
+    &-photo {
+      width: $item-icon-width;
+      height: $item-icon-width;
+      overflow: hidden;
+      float: left;
+      z-index: 5;
+      margin-right: 12px;
+      border-radius: 50%;
+      margin-left: 23px;
+      box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+      transition: all 300ms ease;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &-info {
+      padding: .5rem 15px;
+
+      >p {
+        white-space: nowrap;
+        font-size: .9rem;
+        margin: 0;
+        transition: all 300ms ease;
+      }
+    }
+  }
+
+  &_wrapper {
+    position: relative;
+    height: calc(100vh - 71.65px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: $sidebar-width;
+    z-index: 4;
+    padding-bottom: 30px;
+
+    &.os-host {
+      overflow-x: hidden !important;
+      padding-bottom: 100px;
+
+      .nav {
+        padding-bottom: 20px;
+      }
+    }
+
+    .nav {
+      margin-top: 20px;
+      display: block;
+
+      .nav-link {
+        cursor: pointer;
+      }
+
+      p {
+        margin: 0;
+        line-height: 30px;
+        font-size: .9rem;
+        position: relative;
+        display: block;
+        height: auto;
+        white-space: nowrap;
+        transition: all 300ms linear;
+
+        >span {
+          margin-left: .5rem;
+        }
+      }
+
+      i,
+      fa-icon {
+        float: left;
+        margin-right: 12px;
+        line-height: 30px;
+        width: $item-icon-width;
+        text-align: center;
+        color: #A9AFBB;
+        position: relative;
+      }
+
+      i {
+        font-size: 20px;
+      }
+
+      fa-icon {
+        font-size: .9em;
+      }
+
+      li {
+
+        >a {
+          border-radius: 3px;
+          color: $black-color;
+          // text-transform: capitalize;
+          font-size: 1rem;
+          padding: 10px 8px;
+          margin: 10px 15px 0;
+          line-height: 1.625rem;
+          transition: all 150ms ease-in;
+
+          &:hover,
+          &:focus {
+            background-color: transparent;
+            outline: none;
+          }
+        }
+
+        &:first-child>a {
+          margin: 0 15px;
+        }
+
+        &:hover>a {
+          background-color: rgba(200, 200, 200, 0.2);
+          color: $black-color;
+          box-shadow: none;
+        }
+
+        &.active {
+
+          >a {
+            cursor: default;
+            color: $white-color;
+            background-color: $sidebar-item-color;
+
+            @include shadow-sidebar-item();
+          }
+
+          i,
+          fa-icon {
+            color: $white-color;
+          }
+        }
+
+        &.separator {
+          margin: 15px 0;
+
+          &:after {
+            width: calc(100% - 30px);
+            content: '';
+            position: absolute;
+            height: 1px;
+            left: 15px;
+            background-color: rgba(180, 180, 180, .3);
+          }
+
+          &+li {
+            margin-top: 31px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.sidebar,
+.sidebar_wrapper {
+  transition-property: top, bottom, width;
+  transition-duration: .2s, .2s, .35s;
+  transition-timing-function: linear, linear, ease;
+}
