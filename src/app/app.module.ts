@@ -10,6 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { AppComponent } from 'src/app/app.component';
+import { metaReducers, reducers } from 'src/app/store';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -22,7 +23,13 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     CoreModule,
     FontAwesomeModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production
