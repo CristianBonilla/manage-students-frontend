@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '@directives/directives.module';
+import { CreateStudentComponent } from '@modules/students/components/create-student/create-student.component';
 import { StudentService } from '@modules/students/services/student.service';
 import { studentsFeatureKey, reducer as studentsReducer } from '@modules/students/store';
 import { StudentEffects } from '@modules/students/store/effects/student.effects';
@@ -15,7 +16,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
 
 @NgModule({
-  declarations: [StudentsComponent],
+  declarations: [StudentsComponent, CreateStudentComponent],
   imports: [
     CommonModule,
     StudentsRoutingModule,

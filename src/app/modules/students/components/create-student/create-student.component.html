@@ -1,0 +1,48 @@
+<ng-template #createStudentTemplate let-modal>
+  <ng-container *ngIf="createActionType$ | async as action">
+    <div class="modal-header">
+      <h4 class="modal-title fw-bold">Crear un nuevo estudiante</h4>
+      <button type="button" class="btn-close focus-ring focus-ring-light" (click)="dismiss(modal)" [disabled]="action.loading"></button>
+    </div>
+    <form autocomplete="off" spellcheck="false" [formGroup]="createStudentForm" (ngSubmit)="createStudent(modal)">
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="student-document-number" class="form-label">Número de documento</label>
+          <input type="text" id="student-document-number" class="form-control focus-ring focus-ring-dark" placeholder="Número de documento"
+            [formControl]="documentNumberControl"
+            [msfFormErrorHandler]="documentNumberControl" trim="blur">
+        </div>
+        <div class="mb-3">
+          <label for="student-mobile" class="form-label">Télefono</label>
+          <input type="text" id="student-mobile" class="form-control focus-ring focus-ring-dark" placeholder="Teléfono"
+            [formControl]="mobileControl"
+            [msfFormErrorHandler]="mobileControl" trim="blur">
+        </div>
+        <div class="mb-3">
+          <label for="student-firstname" class="form-label">Nombres</label>
+          <input type="text" id="student-firstname" class="form-control focus-ring focus-ring-dark" placeholder="Nombres"
+            [formControl]="firstnameControl"
+            [msfFormErrorHandler]="firstnameControl" trim="blur">
+        </div>
+        <div class="mb-3">
+          <label for="student-lastname" class="form-label">Apellido</label>
+          <input type="text" id="student-lastname" class="form-control focus-ring focus-ring-dark" placeholder="Apellido"
+            [formControl]="lastnameControl"
+            [msfFormErrorHandler]="lastnameControl" trim="blur">
+        </div>
+        <div class="mb-3">
+          <label for="student-email" class="form-label">Correo electrónico</label>
+          <input type="text" id="student-email" class="form-control focus-ring focus-ring-dark" placeholder="Correo electrónico"
+            [formControl]="emailControl"
+            [msfFormErrorHandler]="emailControl" trim="blur">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" id="student-submit" [ngClass]="['btn', createStudentForm.invalid || action.loading ? 'btn-danger' : 'btn-success']" [disabled]="createStudentForm.invalid || action.loading">
+          <fa-icon [icon]="action.loading ? ['fas', 'spinner'] : ['fas', 'plus-circle']" [animation]="action.loading ? 'spin' : undefined"></fa-icon>
+          Crear estudiante
+        </button>
+      </div>
+    </form>
+  </ng-container>
+</ng-template>

@@ -113,6 +113,7 @@ const studentsReducer = createReducer(
   })),
   on(fetchStudentsAction, state => ({
     ...state,
+    students: null,
     actions: updateAction(state, 'general', true, null)
   })),
   on(fetchStudentsFailureAction, (state, { error }) => ({

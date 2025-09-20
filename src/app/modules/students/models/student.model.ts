@@ -13,3 +13,9 @@ export interface StudentRequest extends Student { }
 export interface StudentResponse extends Student, Auditable {
   studentId: string;
 }
+
+export enum StudentOperation {
+  CREATED,
+  UPDATED,
+  DELETED
+}
