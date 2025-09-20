@@ -5,8 +5,20 @@ import { HomeComponent } from '@modules/home/home.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
-  }
+    component: HomeComponent,
+    children: [
+      {
+        path: 'students',
+        loadChildren: () => import('@modules/students/students.module')
+          .then(module => module.StudentsModule)
+      },
+      {
+        path: '',
+        redirectTo: 'students',
+        pathMatch: 'prefix'
+      }
+    ]
+  },
 ];
 
 @NgModule({
