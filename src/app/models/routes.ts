@@ -7,7 +7,11 @@ const APP_ROUTES = {
       MAIN: '/home/teachers'
     },
     STUDENTS: {
-      MAIN: '/home/students'
+      MAIN: '/home/students',
+      CREATE: '/home/students/create',
+      UPDATE: '/home/students/update',
+      DELETE: '/home/students/delete',
+      INFO: '/home/students/info'
     },
     GRADES: {
       MAIN: '/home/grades'

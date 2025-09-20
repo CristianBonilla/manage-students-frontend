@@ -3,12 +3,17 @@ export {
   faSignOutAlt,
   faAlignRight,
   faAlignJustify,
-  faUsers
+  faUsers,
+  faPlusCircle,
+  faSpinner
 } from '@fortawesome/free-solid-svg-icons';
 
 export {
   faUserCircle,
-  faBell
+  faBell,
+  faEye,
+  faEdit,
+  faTrashAlt
 } from '@fortawesome/free-regular-svg-icons';
 
 export { } from '@fortawesome/free-brands-svg-icons';
