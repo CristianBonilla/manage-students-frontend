@@ -1,0 +1,43 @@
+<nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top">
+  <div class="container-fluid">
+    <button type="button" class="navbar-toggler focus-ring focus-ring-light" data-bs-toggle="collapse" data-bs-target="#navigation">
+      <span class="navbar-toggler-bar navbar-kebab"></span>
+      <span class="navbar-toggler-bar navbar-kebab"></span>
+      <span class="navbar-toggler-bar navbar-kebab"></span>
+    </button>
+    <div class="navbar-wrapper">
+      <a class="navbar-brand" routerLink="/">
+        <fa-icon [icon]="['fas', 'home']" size="2x"></fa-icon>
+      </a>
+      <div class="navbar-toggle" #toggle>
+        <button type="button" class="navbar-toggler">
+          <span class="navbar-toggler-bar bar1"></span>
+          <span class="navbar-toggler-bar bar2"></span>
+          <span class="navbar-toggler-bar bar3"></span>
+        </button>
+      </div>
+    </div>
+    <div id="navigation" class="collapse navbar-collapse justify-content-end">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" (click)="$event.preventDefault()">
+            <fa-icon [icon]="['far', 'user-circle']" size="2x"></fa-icon>
+            <p>Perfil</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="$event.preventDefault()">
+            <fa-icon [icon]="['far', 'bell']" size="2x"></fa-icon>
+            <p>Alertas</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="$event.preventDefault()">
+            <fa-icon [icon]="['fas', 'sign-out-alt']" size="2x"></fa-icon>
+            <p>Cerrar sesión&ensp;</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

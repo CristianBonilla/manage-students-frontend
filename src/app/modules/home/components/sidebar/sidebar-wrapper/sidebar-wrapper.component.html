@@ -1,0 +1,18 @@
+<overlay-scrollbars class="sidebar_wrapper" [defer]="true" [options]="scrollbarOptions">
+  <div class="sidebar_user">
+    <div class="sidebar_user-photo">
+      <img src="assets/images/user-profile.png" alt="">
+    </div>
+    <div class="sidebar_user-info">
+      <p class="text-truncate">Buen día, Cristian Bonilla</p>
+    </div>
+  </div>
+  <ul class="nav">
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="ROUTES.STUDENTS">
+        <fa-icon [icon]="[ 'fas', 'users' ]" size="2x"></fa-icon>
+        <p>Estudiantes</p>
+      </a>
+    </li>
+  </ul>
+</overlay-scrollbars>

@@ -1,0 +1,17 @@
+<div class="sidebar" #sidebar>
+  <div class="sidebar_logo">
+    <a class="sidebar_logo-text sidebar_logo-mini" routerLink="/">
+      <figure class="figure">
+        <img src="assets/images/logo.png" alt="">
+      </figure>
+    </a>
+    <a class="sidebar_logo-text sidebar_logo-normal text-decoration-none" routerLink="/">Estudiantes</a>
+    <div class="sidebar_logo-minimize">
+      <button type="button" (click)="minimize()">
+        <fa-icon class="visible-on-regular" [icon]="['fas', 'align-right']" size="lg"></fa-icon>
+        <fa-icon class="visible-on-mini" [icon]="['fas', 'align-justify']" size="lg"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <msf-sidebar-wrapper />
+</div>

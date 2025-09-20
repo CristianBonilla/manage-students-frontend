@@ -1,1 +1,10 @@
-<p>home works!</p>
+<overlay-scrollbars class="wrapper" [defer]="true" msfToggleSidebar [options]="scrollbarOptions">
+  <msf-sidebar />
+  <div class="main-panel">
+    <msf-navbar />
+    <main class="content">
+      <router-outlet />
+    </main>
+    <msf-footer />
+  </div>
+</overlay-scrollbars>
