@@ -9,7 +9,7 @@ import {
 } from '@modules/students/store/selectors/students.selectors';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-import { filter, Observable, startWith, Subscription, take, zip } from 'rxjs';
+import { filter, Observable, startWith, Subscription, take, withLatestFrom } from 'rxjs';
 import { APP_ROUTES } from 'src/app/models/routes';
 import { DEFAULT_SCROLLBAR_OPTIONS, ScrollbarOptions } from 'src/app/models/scrollbar';
 import { StudentResponse } from './models/student.model';
@@ -63,22 +63,21 @@ export class StudentsComponent implements OnInit, OnDestroy {
       .subscribe(_pageSize => {
         this.#loadStudents();
       });
-    zip([
-      this.generalActionType$,
-      this.studentsLength$
-    ]).pipe(
-      filter(([{ loading }]) => !loading),
-      take(1)
-    ).subscribe(([{ error }, length]) => {
-      if (error === null) {
-        this.#toastr.success(`Se cargaron '${length}' estudiantes con éxito`);
-      } else {
-        this.#toastr.error(
-          'Se presento un error al obtener el listado de estudiantes',
-          error.errors[0]
-        );
-      }
-    });
+    this.generalActionType$
+      .pipe(
+        filter(({ loading }) => !loading),
+        withLatestFrom(this.studentsLength$),
+        take(1)
+      ).subscribe(([{ error }, length]) => {
+        if (error === null) {
+          this.#toastr.success(`Se cargaron '${length}' estudiantes con éxito`);
+        } else {
+          this.#toastr.error(
+            'Se presento un error al obtener el listado de estudiantes',
+            error.errors[0]
+          );
+        }
+      });
   }
 
   ngOnDestroy() {
