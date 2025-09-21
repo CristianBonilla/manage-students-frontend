@@ -6,6 +6,9 @@ import {
   deleteStudentAction,
   deleteStudentFailureAction,
   deleteStudentSuccessAction,
+  fetchStudentByIdAction,
+  fetchStudentByIdFailureAction,
+  fetchStudentByIdSuccessAction,
   fetchStudentsAction,
   fetchStudentsExcludedByTeacherAction,
   fetchStudentsExcludedByTeacherFailureAction,
@@ -49,13 +52,13 @@ export const INITIAL_STATE: StudentsState = {
 function updateAction(
   state: StudentsState,
   action: keyof StudentActions,
-  loading?: boolean,
+  loading: boolean,
   error?: ServiceError | null
 ): StudentActions {
   return {
     ...state.actions,
     [action]: {
-      loading: loading === undefined ? state.actions[action].loading : loading,
+      loading,
       error: error === undefined ? state.actions[action].error : error
     }
   };
@@ -125,28 +128,50 @@ const studentsReducer = createReducer(
     students,
     actions: updateAction(state, 'general', false)
   })),
-  on(fetchStudentsExcludedByTeacherAction, state => ({ ...state })),
-  on(fetchStudentsExcludedByTeacherFailureAction, (state, { error }) => ({
+  on(fetchStudentByIdAction, (state, { actionType }) => ({
     ...state,
-    actions: updateAction(state, 'general', undefined, error)
+    actions: updateAction(state, actionType, true, null)
   })),
-  on(fetchStudentsExcludedByTeacherSuccessAction, (state, { students }) => ({
+  on(fetchStudentByIdFailureAction, (state, { actionType, error }) => ({
+    ...state,
+    actions: updateAction(state, actionType, false, error)
+  })),
+  on(fetchStudentByIdSuccessAction, (state, { actionType, student }) => ({
+    ...state,
+    studentSelected: {
+      student,
+      hasAssociatedGrades: null
+    },
+    actions: updateAction(state, actionType, false)
+  })),
+  on(fetchStudentsExcludedByTeacherAction, (state, { actionType }) => ({
+    ...state,
+    actions: updateAction(state, actionType, true, null)
+  })),
+  on(fetchStudentsExcludedByTeacherFailureAction, (state, { actionType, error }) => ({
+    ...state,
+    actions: updateAction(state, actionType, false, error)
+  })),
+  on(fetchStudentsExcludedByTeacherSuccessAction, (state, { actionType, students }) => ({
     ...state,
     studentsExcluded: students,
-    actions: updateAction(state, 'general', undefined, null)
+    actions: updateAction(state, actionType, false)
   })),
-  on(hasAssociatedGradesByStudentAction, state => ({ ...state })),
-  on(hasAssociatedGradesByStudentFailureAction, (state, { error }) => ({
+  on(hasAssociatedGradesByStudentAction, (state, { actionType }) => ({
     ...state,
-    actions: updateAction(state, 'general', undefined, error)
+    actions: updateAction(state, actionType, true, null)
   })),
-  on(hasAssociatedGradesByStudentSuccessAction, (state, { hasAssociatedGrades }) => ({
+  on(hasAssociatedGradesByStudentFailureAction, (state, { actionType, error }) => ({
+    ...state,
+    actions: updateAction(state, actionType, false, error)
+  })),
+  on(hasAssociatedGradesByStudentSuccessAction, (state, { actionType, hasAssociatedGrades }) => ({
     ...state,
     studentSelected: !!state.studentSelected ? {
       ...state.studentSelected,
       hasAssociatedGrades
     } : null,
-    actions: updateAction(state, 'general', undefined, null)
+    actions: updateAction(state, actionType, false)
   }))
 );
 

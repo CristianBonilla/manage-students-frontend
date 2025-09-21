@@ -24,7 +24,7 @@ import {
   updateStudentSuccessAction
 } from '@modules/students/store/actions/student.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, delay, map, of, switchMap } from 'rxjs';
+import { catchError, delay, map, of, switchMap, zip } from 'rxjs';
 import { DEFAULT_WAIT } from 'src/app/constants/common.constants';
 import { ServiceError } from 'src/app/models/service-error';
 
@@ -97,13 +97,13 @@ export class StudentEffects {
     .pipe(
       ofType(fetchStudentByIdAction),
       delay(DEFAULT_WAIT),
-      switchMap(({ studentId }) => this.#studentService.fetchStudentById(studentId)
+      switchMap(({ actionType, studentId }) => this.#studentService.fetchStudentById(studentId)
         .pipe(
-          map(student => fetchStudentByIdSuccessAction({ student })),
+          map(student => fetchStudentByIdSuccessAction({ actionType, student })),
           catchError(httpError => {
             const error: ServiceError = httpError.error ?? httpError;
 
-            return of(fetchStudentByIdFailureAction({ error }));
+            return of(fetchStudentByIdFailureAction({ actionType, error }));
           })
         ))
     ));
@@ -111,13 +111,13 @@ export class StudentEffects {
   fetchStudentsExcludedByTeacher$ = createEffect(() => this.#actions
     .pipe(
       ofType(fetchStudentsExcludedByTeacherAction),
-      switchMap(({ teacherId }) => this.#studentService.fetchStudentsExcludedByTeacher(teacherId)
+      switchMap(({ actionType, teacherId }) => this.#studentService.fetchStudentsExcludedByTeacher(teacherId)
         .pipe(
-          map(students => fetchStudentsExcludedByTeacherSuccessAction({ students })),
+          map(students => fetchStudentsExcludedByTeacherSuccessAction({ actionType, students })),
           catchError(httpError => {
             const error: ServiceError = httpError.error ?? httpError;
 
-            return of(fetchStudentsExcludedByTeacherFailureAction({ error }));
+            return of(fetchStudentsExcludedByTeacherFailureAction({ actionType, error }));
           })
         ))
     ));
@@ -125,13 +125,13 @@ export class StudentEffects {
   hasAssociatedGradesByStudent$ = createEffect(() => this.#actions
     .pipe(
       ofType(hasAssociatedGradesByStudentAction),
-      switchMap(({ studentId }) => this.#studentService.hasAssociatedGrades(studentId)
+      switchMap(({ actionType, studentId }) => this.#studentService.hasAssociatedGrades(studentId)
         .pipe(
-          map(hasAssociatedGrades => hasAssociatedGradesByStudentSuccessAction({ hasAssociatedGrades })),
+          map(hasAssociatedGrades => hasAssociatedGradesByStudentSuccessAction({ actionType, hasAssociatedGrades })),
           catchError(httpError => {
             const error: ServiceError = httpError.error ?? httpError;
 
-            return of(hasAssociatedGradesByStudentFailureAction({ error }));
+            return of(hasAssociatedGradesByStudentFailureAction({ actionType, error }));
           })
         ))
     ));

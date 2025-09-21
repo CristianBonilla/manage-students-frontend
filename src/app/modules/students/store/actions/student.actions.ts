@@ -1,4 +1,5 @@
 import { StudentRequest, StudentResponse } from "@modules/students/models/student.model";
+import { StudentActions } from "@modules/students/models/students-state";
 import { createAction, props } from "@ngrx/store";
 import { ServiceError } from "src/app/models/service-error";
 
@@ -77,39 +78,39 @@ export const fetchStudentsSuccessAction = createAction(
 
 export const fetchStudentByIdAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENT_BY_ID,
-  props<{ studentId: string }>()
+  props<{ actionType: keyof StudentActions, studentId: string }>()
 );
 export const fetchStudentByIdFailureAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENT_BY_ID_FAILURE,
-  props<{ error: ServiceError }>()
+  props<{ actionType: keyof StudentActions, error: ServiceError }>()
 );
 export const fetchStudentByIdSuccessAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENT_BY_ID_SUCCESS,
-  props<{ student: StudentResponse }>()
+  props<{ actionType: keyof StudentActions, student: StudentResponse }>()
 );
 
 export const fetchStudentsExcludedByTeacherAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENTS_EXCLUDED_BY_TEACHER,
-  props<{ teacherId: string }>()
+  props<{ actionType: keyof StudentActions, teacherId: string }>()
 );
 export const fetchStudentsExcludedByTeacherFailureAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENTS_EXCLUDED_BY_TEACHER_FAILURE,
-  props<{ error: ServiceError }>()
+  props<{ actionType: keyof StudentActions, error: ServiceError }>()
 );
 export const fetchStudentsExcludedByTeacherSuccessAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENTS_EXCLUDED_BY_TEACHER_SUCCESS,
-  props<{ students: StudentResponse[] }>()
+  props<{ actionType: keyof StudentActions, students: StudentResponse[] }>()
 );
 
 export const hasAssociatedGradesByStudentAction = createAction(
   STUDENTS_ACTIONS.HAS_ASSOCIATED_GRADES,
-  props<{ studentId: string }>()
+  props<{ actionType: keyof StudentActions, studentId: string }>()
 );
 export const hasAssociatedGradesByStudentFailureAction = createAction(
   STUDENTS_ACTIONS.HAS_ASSOCIATED_GRADES_FAILURE,
-  props<{ error: ServiceError }>()
+  props<{ actionType: keyof StudentActions, error: ServiceError }>()
 );
 export const hasAssociatedGradesByStudentSuccessAction = createAction(
   STUDENTS_ACTIONS.HAS_ASSOCIATED_GRADES_SUCCESS,
-  props<{ hasAssociatedGrades: boolean }>()
+  props<{ actionType: keyof StudentActions, hasAssociatedGrades: boolean }>()
 );
