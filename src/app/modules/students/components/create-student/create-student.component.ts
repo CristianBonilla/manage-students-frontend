@@ -68,11 +68,11 @@ export class CreateStudentComponent implements AfterViewInit {
     this.#onPopState();
   }
 
-  dismiss(modal: NgbActiveModal) {
-    modal.dismiss(null);
+  dismiss() {
+    this.#createStudentModal.dismiss(null);
   }
 
-  createStudent(modal: NgbActiveModal) {
+  createStudent() {
     if (this.createStudentForm.invalid) {
       return;
     }
@@ -100,7 +100,7 @@ export class CreateStudentComponent implements AfterViewInit {
             'Se creó un nuevo estudiante con éxito',
             `Número de identificación: ${documentNumber}`
           );
-          modal.close(StudentOperation.CREATED);
+          this.#createStudentModal.close(StudentOperation.CREATED);
         }
       });
   }
@@ -118,7 +118,7 @@ export class CreateStudentComponent implements AfterViewInit {
       .pipe(take(1))
       .subscribe(_ => {
         this.#textFieldProvider.focus();
-        this.#router.navigate([ ROUTES.MAIN ]);
+        this.#router.navigate([ROUTES.MAIN]);
       });
   }
 
@@ -126,7 +126,7 @@ export class CreateStudentComponent implements AfterViewInit {
     this.#router.events
       .pipe(
         withLatestFrom(this.createActionType$),
-        filter(([ event ]) => event instanceof NavigationStart && event.navigationTrigger === 'popstate'),
+        filter(([event]) => event instanceof NavigationStart && event.navigationTrigger === 'popstate'),
         take(1)
       ).subscribe(([_, { loading }]) => {
         if (!loading) {
