@@ -5,7 +5,7 @@ import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { emailValidator, onlyLetters, onlyNumbers } from '@helpers/validators/formats.validator';
 import { StudentOperation, StudentRequest } from '@modules/students/models/student.model';
 import { StudentSelected, StudentsState } from '@modules/students/models/students-state';
-import { fetchStudentByIdAction, fetchStudentsAction, hasAssociatedGradesByStudentAction, updateStudentAction } from '@modules/students/store/actions/student.actions';
+import { fetchStudentByIdAction, fetchStudentsAction, updateStudentAction } from '@modules/students/store/actions/student.actions';
 import { getActionSelector, getStudentSelector } from '@modules/students/store/selectors/students.selectors';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -85,9 +85,6 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
         if (selected?.student.studentId === this.studentId) {
           this.loadingFetchStudentById$ = of(false);
           this.student = selected;
-          if (selected.hasAssociatedGrades === null) {
-            this.#store.dispatch(hasAssociatedGradesByStudentAction({ actionType: 'update', studentId: this.studentId }));
-          }
           this.#updateFormFields();
         } else {
           this.#fetchStudent();
@@ -126,11 +123,11 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
             getError(error)
           );
         } else {
+          this.#updateStudentModal.close(StudentOperation.UPDATED);
           this.#toastr.success(
             'Se actualizó el estudiante con éxito',
             `Número de identificación: ${documentNumber}`
           );
-          this.#updateStudentModal.close(StudentOperation.UPDATED);
         }
       });
   }
@@ -150,11 +147,9 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
       ).subscribe(([{ error }, student]) => {
         if (!error && !!student) {
           this.student = student;
-          this.#store.dispatch(hasAssociatedGradesByStudentAction({ actionType: 'update', studentId: this.studentId }));
           this.#updateFormFields();
         } else {
           this.#updateStudentModal.close(null);
-          this.#giveBack();
           this.#toastr.error(
             'Se presento un error al obtener información del estudiante',
             getError(error!)
@@ -178,12 +173,12 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
 
   #actionOnCompletion() {
     this.#updateStudentModal.closed
-      .pipe(
-        filter<StudentOperation>(state => state === StudentOperation.UPDATED),
-        take(1)
-      ).subscribe(_ => {
+      .pipe(take(1))
+      .subscribe(state => {
         this.#textFieldProvider.focus();
-        this.#store.dispatch(fetchStudentsAction());
+        if (state === StudentOperation.UPDATED) {
+          this.#store.dispatch(fetchStudentsAction());
+        }
       });
     this.#updateStudentModal.hidden
       .pipe(take(1))

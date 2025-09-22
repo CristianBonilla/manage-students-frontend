@@ -1,7 +1,7 @@
 import { ClassProvider, inject, InjectionToken } from '@angular/core';
 import { WINDOW } from '@core/providers/window.provider';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { asyncScheduler, filter, map, ReplaySubject, startWith, switchMap, take } from 'rxjs';
+import { asyncScheduler, filter, map, ReplaySubject, startWith, switchMap, takeWhile } from 'rxjs';
 import { TextFieldInfo } from 'src/app/models/text-field';
 
 export class TextField {
@@ -18,8 +18,8 @@ export class TextField {
     this.#textField$
       .pipe(
         switchMap(info => info.control.statusChanges.pipe(startWith(null), map(_ => info))),
-        filter(({ control, $text }) => control.enabled && this.#document.activeElement !== $text),
-        take(1)
+        filter(({ control }) => control.enabled),
+        takeWhile(({ $text }) => this.#document.activeElement !== $text)
       ).subscribe(({ $text }) => {
         asyncScheduler.schedule(() => {
           if (!this.#modal.hasOpenModals()) {
