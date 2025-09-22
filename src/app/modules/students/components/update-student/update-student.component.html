@@ -1,0 +1,64 @@
+<ng-template #updateStudentTemplate>
+  <ng-container *ngIf="updateActionType$ | async as action">
+    <ng-container *ngIf="(loadingFetchStudentById$ | async) === false; else loading">
+      <div class="modal-header">
+        <h4 class="modal-title fw-bold">Actualizar estudiante</h4>
+        <button type="button" class="btn-close focus-ring focus-ring-light" (click)="dismiss()" [disabled]="action.loading"></button>
+      </div>
+      <form autocomplete="off" spellcheck="false" [formGroup]="updateStudentForm" (ngSubmit)="updateStudent()">
+        <div class="modal-body">
+          <div class="mb-0">
+            <input type="hidden" id="student-id" class="form-control" [value]="studentId">
+          </div>
+          <div class="mb-3">
+            <label for="student-document-number" class="form-label">Número de documento</label>
+            <input type="text" id="student-document-number" class="form-control focus-ring focus-ring-dark" placeholder="Número de documento"
+              [formControl]="documentNumberControl"
+              [msfFormErrorHandler]="{
+                instance: documentNumberControl,
+                focus: true
+              }" trim="blur">
+          </div>
+          <div class="mb-3">
+            <label for="student-mobile" class="form-label">Télefono</label>
+            <input type="text" id="student-mobile" class="form-control focus-ring focus-ring-dark" placeholder="Teléfono"
+              [formControl]="mobileControl"
+              [msfFormErrorHandler]="mobileControl" trim="blur">
+          </div>
+          <div class="mb-3">
+            <label for="student-firstname" class="form-label">Nombres</label>
+            <input type="text" id="student-firstname" class="form-control focus-ring focus-ring-dark" placeholder="Nombres"
+              [formControl]="firstnameControl"
+              [msfFormErrorHandler]="firstnameControl" trim="blur">
+          </div>
+          <div class="mb-3">
+            <label for="student-lastname" class="form-label">Apellido</label>
+            <input type="text" id="student-lastname" class="form-control focus-ring focus-ring-dark" placeholder="Apellido"
+              [formControl]="lastnameControl"
+              [msfFormErrorHandler]="lastnameControl" trim="blur">
+          </div>
+          <div class="mb-3">
+            <label for="student-email" class="form-label">Correo electrónico</label>
+            <input type="text" id="student-email" class="form-control focus-ring focus-ring-dark" placeholder="Correo electrónico"
+              [formControl]="emailControl"
+              [msfFormErrorHandler]="emailControl" trim="blur">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" id="student-submit" [ngClass]="['btn', updateStudentForm.invalid || action.loading ? 'btn-danger' : 'btn-success']" [disabled]="updateStudentForm.invalid || action.loading">
+            <fa-icon [icon]="action.loading ? ['fas', 'spinner'] : ['far', 'edit']" [animation]="action.loading ? 'spin' : undefined"></fa-icon>
+            Actualizar estudiante
+          </button>
+        </div>
+      </form>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #loading>
+  <div class="container">
+    <div class="d-flex justify-content-center p-3">
+      <fa-icon class="text-black-50" [icon]="['fas', 'spinner']" animation="spin" size="4x"></fa-icon>
+    </div>
+  </div>
+</ng-template>

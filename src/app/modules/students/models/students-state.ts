@@ -13,12 +13,14 @@ export interface StudentActions {
   delete: StudentActionInfo;
 }
 
+export interface StudentSelected {
+  student: StudentResponse;
+  hasAssociatedGrades: boolean | null;
+}
+
 export interface StudentsState {
   students: StudentResponse[] | null;
   studentsExcluded: StudentResponse[] | null;
-  studentSelected: {
-    student: StudentResponse;
-    hasAssociatedGrades: boolean | null;
-  } | null;
+  studentSelected: StudentSelected | null;
   actions: StudentActions;
 }
