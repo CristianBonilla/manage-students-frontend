@@ -6,7 +6,7 @@
         <form autocomplete="off" spellcheck="false" [ngStyle]="{ 'max-width.px': 300, 'width.%': 100 }">
           <input type="text" id="search-students" class="form-control focus-ring focus-ring-dark"
             placeholder="Buscar estudiantes..."
-            [formControl]="textControl" />
+            [formControl]="textControl" #text />
         </form>
         <a type="button" class="btn btn-outline-light mt-2 mb-1 my-sm-0" [routerLink]="ROUTES.CREATE">
           <fa-icon [icon]="['fas', 'plus-circle']" size="lg"></fa-icon>

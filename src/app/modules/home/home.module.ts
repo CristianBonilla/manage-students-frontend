@@ -9,6 +9,7 @@ import { HomeRoutingModule } from '@modules/home/home-routing.module';
 import { HomeComponent } from '@modules/home/home.component';
 import { ToggleSidebarService } from '@modules/home/services/toggle-sidebar/toggle-sidebar.service';
 import { IconsModule } from '@shared/icons/icons.module';
+import { TEXT_FIELD_PROVIDER } from '@shared/providers/text-field.provider';
 import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
 
 @NgModule({
@@ -26,6 +27,6 @@ import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
     IconsModule,
     OverlayscrollbarsModule
   ],
-  providers: [ToggleSidebarService]
+  providers: [ToggleSidebarService, TEXT_FIELD_PROVIDER]
 })
 export class HomeModule { }

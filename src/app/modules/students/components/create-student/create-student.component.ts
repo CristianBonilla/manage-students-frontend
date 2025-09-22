@@ -9,6 +9,7 @@ import { addStudentAction, fetchStudentsAction } from '@modules/students/store/a
 import { getActionSelector } from '@modules/students/store/selectors/students.selectors';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import { TEXT_FIELD } from '@shared/providers/text-field.provider';
 import { ToastrService } from 'ngx-toastr';
 import { filter, take, withLatestFrom } from 'rxjs';
 import { DEFAULT_MODAL_OPTIONS } from 'src/app/models/modal';
@@ -29,6 +30,7 @@ export class CreateStudentComponent implements AfterViewInit {
   readonly #router = inject(Router);
   readonly #location = inject(Location);
   readonly #toastr = inject(ToastrService);
+  readonly #textFieldProvider = inject(TEXT_FIELD);
   @ViewChild('createStudentTemplate')
   readonly createStudentTemplate!: TemplateRef<NgbActiveModal>;
   readonly createStudentForm = this.#formBuilder.nonNullable.group({
@@ -109,11 +111,15 @@ export class CreateStudentComponent implements AfterViewInit {
         filter<StudentOperation>(state => state === StudentOperation.CREATED),
         take(1)
       ).subscribe(_ => {
+        this.#textFieldProvider.focus();
         this.#store.dispatch(fetchStudentsAction());
       });
     this.#createStudentModal.hidden
       .pipe(take(1))
-      .subscribe(_ => this.#router.navigate([ ROUTES.MAIN ]));
+      .subscribe(_ => {
+        this.#textFieldProvider.focus();
+        this.#router.navigate([ ROUTES.MAIN ]);
+      });
   }
 
   #onPopState() {

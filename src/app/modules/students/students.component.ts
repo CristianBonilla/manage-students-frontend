@@ -1,5 +1,6 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { StudentResponse } from '@modules/students/models/student.model';
 import { StudentsState } from '@modules/students/models/students-state';
 import { fetchStudentsAction } from '@modules/students/store/actions/student.actions';
 import {
@@ -8,11 +9,11 @@ import {
   paginateStudentsSelector
 } from '@modules/students/store/selectors/students.selectors';
 import { Store } from '@ngrx/store';
+import { TEXT_FIELD } from '@shared/providers/text-field.provider';
 import { ToastrService } from 'ngx-toastr';
 import { filter, Observable, startWith, Subscription, take, withLatestFrom } from 'rxjs';
 import { APP_ROUTES } from 'src/app/models/routes';
 import { DEFAULT_SCROLLBAR_OPTIONS, ScrollbarOptions } from 'src/app/models/scrollbar';
-import { StudentResponse } from './models/student.model';
 
 const { HOME: { STUDENTS: ROUTES } } = APP_ROUTES;
 
@@ -21,9 +22,10 @@ const { HOME: { STUDENTS: ROUTES } } = APP_ROUTES;
   templateUrl: './students.component.html',
   styles: ``
 })
-export class StudentsComponent implements OnInit, OnDestroy {
+export class StudentsComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly #store = inject(Store<StudentsState>);
   readonly #toastr = inject(ToastrService);
+  readonly #textFieldProvider = inject(TEXT_FIELD);
   readonly scrollbarOptions: ScrollbarOptions = {
     ...DEFAULT_SCROLLBAR_OPTIONS,
     overflow: {
@@ -42,15 +44,17 @@ export class StudentsComponent implements OnInit, OnDestroy {
   pageSizeItemsSubscription!: Subscription;
   generalActionTypeSubscription!: Subscription;
   generalActionType$ = this.#store.select(getActionSelector('general'));
+  @ViewChild('text')
+  readonly textRef!: ElementRef<HTMLInputElement>;
 
   ngOnInit() {
     this.#store.dispatch(fetchStudentsAction());
     this.generalActionTypeSubscription = this.generalActionType$
       .subscribe(({ loading, error }) => {
-        if (loading || error !== null) {
-          this.textControl.disable();
-        } else {
+        if (!loading && error === null) {
           this.textControl.enable();
+        } else {
+          this.textControl.disable();
         }
         this.textControl.patchValue('');
       });
@@ -78,6 +82,14 @@ export class StudentsComponent implements OnInit, OnDestroy {
           );
         }
       });
+  }
+
+  ngAfterViewInit() {
+    this.#textFieldProvider.add({
+      control: this.textControl,
+      $text: this.textRef.nativeElement
+    });
+    this.#textFieldProvider.focus();
   }
 
   ngOnDestroy() {
