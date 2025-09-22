@@ -52,7 +52,7 @@
           </ng-container>
         </table>
       </overlay-scrollbars>
-      <div class="d-flex justify-content-between flex-column flex-sm-row my-2" *ngIf="!action.loading && (studentsLength$ | async)! > 0">
+      <div class="table-pagination" *ngIf="!action.loading && (studentsLength$ | async)! > 0">
         <ngb-pagination
           [collectionSize]="(studentsLength$ | async)!"
           [(page)]="page"
