@@ -13,7 +13,8 @@ export {
   faBell,
   faEye,
   faEdit,
-  faTrashAlt
+  faTrashAlt,
+  faTimesCircle
 } from '@fortawesome/free-regular-svg-icons';
 
 export { } from '@fortawesome/free-brands-svg-icons';

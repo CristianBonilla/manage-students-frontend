@@ -91,7 +91,6 @@ export class StudentsComponent implements OnInit, OnDestroy, AfterViewInit {
       $text: this.textRef.nativeElement
     });
     this.#textFieldProvider.focus();
-    console.log('after');
   }
 
   ngOnDestroy() {
