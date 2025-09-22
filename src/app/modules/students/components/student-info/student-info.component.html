@@ -8,6 +8,12 @@
         <input type="hidden" id="student-id" class="form-control" [value]="studentId">
         <div class="container">
           <div class="row">
+            <div class="col-sm-12 d-flex align-items-center gap-1 py-2">
+              <fa-icon [ngClass]="student.hasAssociatedGrades === true ? 'text-success' : 'text-danger'" [icon]="student.hasAssociatedGrades === true ? ['fas', 'check-circle'] : ['fas', 'times-circle']" size="lg"></fa-icon>
+              <h5 class="text-muted mb-0">{{ student.hasAssociatedGrades === true ? 'Si' : 'No' }} tiene calificaciones asociadas</h5>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-sm-6 d-flex align-items-center py-2">
               <h5 class="text-muted mb-0">Número de documento</h5>
             </div>

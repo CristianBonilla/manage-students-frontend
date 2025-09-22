@@ -6,7 +6,9 @@ export {
   faUsers,
   faPlusCircle,
   faSpinner,
-  faTimes
+  faTimes,
+  faTimesCircle,
+  faCheckCircle
 } from '@fortawesome/free-solid-svg-icons';
 
 export {
@@ -14,8 +16,7 @@ export {
   faBell,
   faEye,
   faEdit,
-  faTrashAlt,
-  faTimesCircle
+  faTrashAlt
 } from '@fortawesome/free-regular-svg-icons';
 
 export { } from '@fortawesome/free-brands-svg-icons';
