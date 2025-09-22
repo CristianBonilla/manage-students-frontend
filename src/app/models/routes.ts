@@ -4,7 +4,11 @@ const APP_ROUTES = {
   HOME: {
     MAIN: 'home',
     TEACHERS: {
-      MAIN: '/home/teachers'
+      MAIN: '/home/teachers',
+      CREATE: '/home/teachers/create',
+      UPDATE: '/home/teachers/update',
+      DELETE: '/home/teachers/delete',
+      INFO: '/home/teachers/info'
     },
     STUDENTS: {
       MAIN: '/home/students',

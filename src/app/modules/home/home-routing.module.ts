@@ -13,12 +13,17 @@ const routes: Routes = [
           .then(module => module.StudentsModule)
       },
       {
+        path: 'teachers',
+        loadChildren: () => import('@modules/teachers/teachers.module')
+          .then(module => module.TeachersModule)
+      },
+      {
         path: '',
         redirectTo: 'students',
         pathMatch: 'prefix'
       }
     ]
-  },
+  }
 ];
 
 @NgModule({

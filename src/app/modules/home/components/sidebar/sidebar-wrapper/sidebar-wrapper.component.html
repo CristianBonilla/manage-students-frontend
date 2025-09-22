@@ -10,8 +10,14 @@
   <ul class="nav">
     <li class="nav-item" routerLinkActive="active">
       <a class="nav-link" [routerLink]="ROUTES.STUDENTS">
-        <fa-icon [icon]="[ 'fas', 'users' ]" size="2x"></fa-icon>
+        <fa-icon [icon]="['fas', 'users']" size="2x"></fa-icon>
         <p>Estudiantes</p>
+      </a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="ROUTES.TEACHERS">
+        <fa-icon [icon]="['fas', 'user-tie']" size="2x"></fa-icon>
+        <p>Profesores</p>
       </a>
     </li>
   </ul>

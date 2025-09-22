@@ -8,7 +8,8 @@ export {
   faSpinner,
   faTimes,
   faTimesCircle,
-  faCheckCircle
+  faCheckCircle,
+  faUserTie
 } from '@fortawesome/free-solid-svg-icons';
 
 export {
