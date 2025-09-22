@@ -15,9 +15,6 @@ import {
   fetchStudentsExcludedByTeacherSuccessAction,
   fetchStudentsFailureAction,
   fetchStudentsSuccessAction,
-  hasAssociatedGradesByStudentAction,
-  hasAssociatedGradesByStudentFailureAction,
-  hasAssociatedGradesByStudentSuccessAction,
   updateStudentAction,
   updateStudentFailureAction,
   updateStudentSuccessAction
@@ -136,11 +133,11 @@ const studentsReducer = createReducer(
     ...state,
     actions: updateAction(state, actionType, false, error)
   })),
-  on(fetchStudentByIdSuccessAction, (state, { actionType, student }) => ({
+  on(fetchStudentByIdSuccessAction, (state, { actionType, student, hasAssociatedGrades }) => ({
     ...state,
     studentSelected: {
       student,
-      hasAssociatedGrades: null
+      hasAssociatedGrades
     },
     actions: updateAction(state, actionType, false)
   })),
@@ -155,22 +152,6 @@ const studentsReducer = createReducer(
   on(fetchStudentsExcludedByTeacherSuccessAction, (state, { actionType, students }) => ({
     ...state,
     studentsExcluded: students,
-    actions: updateAction(state, actionType, false)
-  })),
-  on(hasAssociatedGradesByStudentAction, (state, { actionType }) => ({
-    ...state,
-    actions: updateAction(state, actionType, true, null)
-  })),
-  on(hasAssociatedGradesByStudentFailureAction, (state, { actionType, error }) => ({
-    ...state,
-    actions: updateAction(state, actionType, false, error)
-  })),
-  on(hasAssociatedGradesByStudentSuccessAction, (state, { actionType, hasAssociatedGrades }) => ({
-    ...state,
-    studentSelected: !!state.studentSelected ? {
-      ...state.studentSelected,
-      hasAssociatedGrades
-    } : null,
     actions: updateAction(state, actionType, false)
   }))
 );

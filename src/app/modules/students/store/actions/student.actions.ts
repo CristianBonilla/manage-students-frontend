@@ -21,10 +21,7 @@ export enum STUDENTS_ACTIONS {
   FETCH_STUDENT_BY_ID_SUCCESS = '[Students/API] Fetch Student By Id Success',
   FETCH_STUDENTS_EXCLUDED_BY_TEACHER = '[Students/Store] Fetch Students Except Teacher Id',
   FETCH_STUDENTS_EXCLUDED_BY_TEACHER_FAILURE = '[Students/API] Fetch Students Except Teacher Id Failure',
-  FETCH_STUDENTS_EXCLUDED_BY_TEACHER_SUCCESS = '[Students/API] Fetch Students Except Teacher Id Success',
-  HAS_ASSOCIATED_GRADES = '[Students/Store] Has Associated Grades',
-  HAS_ASSOCIATED_GRADES_FAILURE = '[Students/API] Has Associated Grades Failure',
-  HAS_ASSOCIATED_GRADES_SUCCESS = '[Students/API] Has Associated Grades Success',
+  FETCH_STUDENTS_EXCLUDED_BY_TEACHER_SUCCESS = '[Students/API] Fetch Students Except Teacher Id Success'
 }
 
 export const addStudentAction = createAction(
@@ -86,7 +83,7 @@ export const fetchStudentByIdFailureAction = createAction(
 );
 export const fetchStudentByIdSuccessAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENT_BY_ID_SUCCESS,
-  props<{ actionType: keyof StudentActions, student: StudentResponse }>()
+  props<{ actionType: keyof StudentActions, student: StudentResponse, hasAssociatedGrades: boolean }>()
 );
 
 export const fetchStudentsExcludedByTeacherAction = createAction(
@@ -100,17 +97,4 @@ export const fetchStudentsExcludedByTeacherFailureAction = createAction(
 export const fetchStudentsExcludedByTeacherSuccessAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENTS_EXCLUDED_BY_TEACHER_SUCCESS,
   props<{ actionType: keyof StudentActions, students: StudentResponse[] }>()
-);
-
-export const hasAssociatedGradesByStudentAction = createAction(
-  STUDENTS_ACTIONS.HAS_ASSOCIATED_GRADES,
-  props<{ actionType: keyof StudentActions, studentId: string }>()
-);
-export const hasAssociatedGradesByStudentFailureAction = createAction(
-  STUDENTS_ACTIONS.HAS_ASSOCIATED_GRADES_FAILURE,
-  props<{ actionType: keyof StudentActions, error: ServiceError }>()
-);
-export const hasAssociatedGradesByStudentSuccessAction = createAction(
-  STUDENTS_ACTIONS.HAS_ASSOCIATED_GRADES_SUCCESS,
-  props<{ actionType: keyof StudentActions, hasAssociatedGrades: boolean }>()
 );
