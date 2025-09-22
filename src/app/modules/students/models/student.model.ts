@@ -17,5 +17,6 @@ export interface StudentResponse extends Student, Auditable {
 export enum StudentOperation {
   CREATED,
   UPDATED,
-  DELETED
+  DELETED,
+  INFO
 }

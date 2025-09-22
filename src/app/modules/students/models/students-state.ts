@@ -11,6 +11,7 @@ export interface StudentActions {
   create: StudentActionInfo;
   update: StudentActionInfo;
   delete: StudentActionInfo;
+  info: StudentActionInfo;
 }
 
 export interface StudentSelected {

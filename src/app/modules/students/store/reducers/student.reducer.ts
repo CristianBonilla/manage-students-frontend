@@ -42,6 +42,10 @@ export const INITIAL_STATE: StudentsState = {
     delete: {
       loading: false,
       error: null
+    },
+    info: {
+      loading: false,
+      error: null
     }
   }
 }

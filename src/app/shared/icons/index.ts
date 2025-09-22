@@ -5,7 +5,8 @@ export {
   faAlignJustify,
   faUsers,
   faPlusCircle,
-  faSpinner
+  faSpinner,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 export {

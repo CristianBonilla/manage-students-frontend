@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '@directives/directives.module';
 import { CreateStudentComponent } from '@modules/students/components/create-student/create-student.component';
 import { DeleteStudentComponent } from '@modules/students/components/delete-student/delete-student.component';
+import { StudentInfoComponent } from '@modules/students/components/student-info/student-info.component';
 import { UpdateStudentComponent } from '@modules/students/components/update-student/update-student.component';
 import { StudentService } from '@modules/students/services/student.service';
 import { studentsFeatureKey, reducer as studentsReducer } from '@modules/students/store';
@@ -23,7 +24,8 @@ import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
     StudentsComponent,
     CreateStudentComponent,
     UpdateStudentComponent,
-    DeleteStudentComponent
+    DeleteStudentComponent,
+    StudentInfoComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,84 @@
+<ng-template #studentInfoTemplate>
+  <ng-container *ngIf="infoActionType$ | async as action">
+    <ng-container *ngIf="(loadingFetchStudentById$ | async) === false; else loading">
+      <div class="modal-header">
+        <h4 class="modal-title fw-bold">Descripción del estudiante</h4>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="student-id" class="form-control" [value]="studentId">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Número de documento</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="fw-bold mb-0">{{ student.student.documentNumber }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Teléfono</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ student.student.mobile }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Nombres</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ student.student.firstname }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Apellido</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ student.student.lastname }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Correo electrónico</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <a class="text-center text-dark-emphasis fst-italic" [href]="'mailto:' + student.student.email">{{ student.student.email }}</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Fecha de creación</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ student.student.createdAt | date: 'EEEE, MMMM d, y' }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Fecha de actualización</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ student.student.updatedAt| date: 'EEEE, MMMM d, y' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary text-light" (click)="dismiss()">
+          <fa-icon [icon]="['fas', 'times']" size="lg"></fa-icon>
+          Cerrar
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #loading>
+  <div class="container">
+    <div class="d-flex justify-content-center p-3">
+      <fa-icon class="text-black-50" [icon]="['fas', 'spinner']" animation="spin" size="4x"></fa-icon>
+    </div>
+  </div>
+</ng-template>
