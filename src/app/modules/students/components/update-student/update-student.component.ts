@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 import { TEXT_FIELD } from '@shared/providers/text-field.provider';
 import { getError } from '@shared/utils/service-error.util';
 import { ToastrService } from 'ngx-toastr';
-import { filter, map, Observable, take, withLatestFrom } from 'rxjs';
+import { filter, map, Observable, of, take, withLatestFrom } from 'rxjs';
 import { DEFAULT_MODAL_OPTIONS } from 'src/app/models/modal';
 import { APP_ROUTES } from 'src/app/models/routes';
 
@@ -42,6 +42,7 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
     lastname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), onlyLetters]],
     email: ['', [Validators.required, emailValidator]]
   });
+  studentSelected$ = this.#store.select(getStudentSelector);
   updateActionType$ = this.#store.select(getActionSelector('update'));
   loadingFetchStudentById$!: Observable<boolean>;
   studentId!: string;
@@ -78,7 +79,20 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
 
       return;
     }
-    this.#loadStudent();
+    this.studentSelected$
+      .pipe(take(1))
+      .subscribe((selected) => {
+        if (selected?.student.studentId === this.studentId) {
+          this.loadingFetchStudentById$ = of(false);
+          this.student = selected;
+          if (selected.hasAssociatedGrades === null) {
+            this.#store.dispatch(hasAssociatedGradesByStudentAction({ actionType: 'update', studentId: this.studentId }));
+          }
+          this.#updateFormFields();
+        } else {
+          this.#fetchStudent();
+        }
+      });
     this.#updateStudentModal = this.#modal.open(this.updateStudentTemplate, DEFAULT_MODAL_OPTIONS);
     this.#actionOnCompletion();
     this.#onPopState();
@@ -121,7 +135,7 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
       });
   }
 
-  #loadStudent() {
+  #fetchStudent() {
     this.#store.dispatch(fetchStudentByIdAction({ actionType: 'update', studentId: this.studentId }));
     this.loadingFetchStudentById$ = this.updateActionType$
       .pipe(
@@ -131,7 +145,7 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
     this.updateActionType$
       .pipe(
         filter(({ loading }) => !loading),
-        withLatestFrom(this.#store.select(getStudentSelector)),
+        withLatestFrom(this.studentSelected$),
         take(1)
       ).subscribe(([{ error }, student]) => {
         if (!error && !!student) {
@@ -139,7 +153,6 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
           this.#store.dispatch(hasAssociatedGradesByStudentAction({ actionType: 'update', studentId: this.studentId }));
           this.#updateFormFields();
         } else {
-          console.log(error);
           this.#updateStudentModal.close(null);
           this.#giveBack();
           this.#toastr.error(
