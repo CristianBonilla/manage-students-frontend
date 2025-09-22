@@ -10,6 +10,7 @@ import { getActionSelector, getStudentSelector } from '@modules/students/store/s
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TEXT_FIELD } from '@shared/providers/text-field.provider';
+import { getError } from '@shared/utils/service-error.util';
 import { ToastrService } from 'ngx-toastr';
 import { filter, map, Observable, take, withLatestFrom } from 'rxjs';
 import { DEFAULT_MODAL_OPTIONS } from 'src/app/models/modal';
@@ -105,7 +106,18 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
         filter(({ loading }) => !loading),
         take(1)
       ).subscribe(({ error }) => {
-
+        if (error !== null) {
+          this.#toastr.error(
+            'Se presento un error al actualizar estudiante',
+            getError(error)
+          );
+        } else {
+          this.#toastr.success(
+            'Se actualizó el estudiante con éxito',
+            `Número de identificación: ${documentNumber}`
+          );
+          this.#updateStudentModal.close(StudentOperation.UPDATED);
+        }
       });
   }
 
@@ -132,7 +144,7 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
           this.#giveBack();
           this.#toastr.error(
             'Se presento un error al obtener información del estudiante',
-            error!.errors[0]
+            getError(error!)
           );
         }
       });

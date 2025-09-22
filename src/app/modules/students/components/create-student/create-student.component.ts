@@ -10,6 +10,7 @@ import { getActionSelector } from '@modules/students/store/selectors/students.se
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TEXT_FIELD } from '@shared/providers/text-field.provider';
+import { getError } from '@shared/utils/service-error.util';
 import { ToastrService } from 'ngx-toastr';
 import { filter, take, withLatestFrom } from 'rxjs';
 import { DEFAULT_MODAL_OPTIONS } from 'src/app/models/modal';
@@ -93,7 +94,7 @@ export class CreateStudentComponent implements AfterViewInit {
         if (error !== null) {
           this.#toastr.error(
             'Se presento un error al crear estudiante',
-            error.errors[0]
+            getError(error)
           );
         } else {
           this.#toastr.success(

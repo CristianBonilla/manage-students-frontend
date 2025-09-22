@@ -1,5 +1,5 @@
 export interface ServiceError {
-  errors: string[];
+  errors: string[] | object;
   status: string;
   statusCode: number;
 }

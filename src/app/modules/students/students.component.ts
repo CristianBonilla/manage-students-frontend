@@ -10,6 +10,7 @@ import {
 } from '@modules/students/store/selectors/students.selectors';
 import { Store } from '@ngrx/store';
 import { TEXT_FIELD } from '@shared/providers/text-field.provider';
+import { getError } from '@shared/utils/service-error.util';
 import { ToastrService } from 'ngx-toastr';
 import { filter, Observable, startWith, Subscription, take, withLatestFrom } from 'rxjs';
 import { APP_ROUTES } from 'src/app/models/routes';
@@ -78,7 +79,7 @@ export class StudentsComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
           this.#toastr.error(
             'Se presento un error al obtener el listado de estudiantes',
-            error.errors[0]
+            getError(error)
           );
         }
       });
