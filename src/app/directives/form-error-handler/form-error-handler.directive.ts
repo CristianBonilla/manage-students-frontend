@@ -13,14 +13,15 @@ interface ControlElements {
   selector: '[msfFormErrorHandler]'
 })
 export class FormErrorHandlerDirective implements OnInit {
-  readonly #controlElementRef = inject(ElementRef<HTMLElement>);
+  readonly #controlElementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   readonly #renderer = inject(Renderer2);
   #control!: AbstractControl;
   #controlTouched = true;
   @Input('msfFormErrorHandler')
   controlOptions!: AbstractControl | {
     instance: AbstractControl;
-    touched: boolean;
+    touched?: boolean;
+    focus?: boolean;
   };
 
   ngOnInit() {
@@ -28,7 +29,10 @@ export class FormErrorHandlerDirective implements OnInit {
       this.#control = this.controlOptions;
     } else {
       this.#control = this.controlOptions.instance;
-      this.#controlTouched = this.controlOptions.touched;
+      this.#controlTouched = this.controlOptions.touched ?? true;
+      if (!!this.controlOptions.focus) {
+        this.#controlElementRef.nativeElement.focus();
+      }
     }
     const controlElements = this.#getControlElements();
     this.#control.valueChanges.pipe(delay(1)).subscribe(() => {

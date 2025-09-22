@@ -10,7 +10,10 @@
           <label for="student-document-number" class="form-label">Número de documento</label>
           <input type="text" id="student-document-number" class="form-control focus-ring focus-ring-dark" placeholder="Número de documento"
             [formControl]="documentNumberControl"
-            [msfFormErrorHandler]="documentNumberControl" trim="blur" ngbAutofocus>
+            [msfFormErrorHandler]="{
+              instance: documentNumberControl,
+              focus: true
+            }" trim="blur">
         </div>
         <div class="mb-3">
           <label for="student-mobile" class="form-label">Télefono</label>
