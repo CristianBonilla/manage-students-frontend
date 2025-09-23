@@ -21,6 +21,11 @@ const routes: Routes = [
       {
         path: 'delete/:teacherId',
         component: DeleteTeacherComponent
+      },
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
       }
     ]
   }
