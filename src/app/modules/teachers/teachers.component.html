@@ -1,1 +1,109 @@
-<p>teachers works!</p>
+<div class="container-fluid px-0 px-sm-2 px-lg-3 padding-transition">
+  <div class="table-container">
+    <div class="bg-dark">
+      <h4 class="text-light my-1 my-sm-0 px-3 pb-2 pt-3">Profesores</h4>
+      <div class="d-sm-flex justify-content-between align-items-center px-3 pb-3 pt-2">
+        <form autocomplete="off" spellcheck="false" [ngStyle]="{ 'max-width.px': 300, 'width.%': 100 }">
+          <input type="text" id="search-teachers" class="form-control focus-ring focus-ring-dark"
+            placeholder="Buscar profesores..."
+            [formControl]="textControl" #text />
+        </form>
+        <a type="button" class="btn btn-outline-light mt-2 mb-1 my-sm-0" [routerLink]="ROUTES.CREATE">
+          <fa-icon [icon]="['fas', 'plus-circle']" size="lg"></fa-icon>
+          Nuevo profesor
+        </a>
+      </div>
+    </div>
+    <ng-container *ngIf="generalActionType$ | async as action">
+      <overlay-scrollbars class="table-responsive-sm" [defer]="true" [options]="scrollbarOptions">
+        <table class="table table-bordered table-striped">
+          <ng-container *ngIf="(action.loading === false || action.error === null) && (teachers$ | async) !== null; else loadingTeachers">
+            <ng-container *ngIf="teachers$ | async as teachers">
+              <ng-container *ngIf="teachers.length > 0; else noTeachersFound">
+                <thead class="thead-dark">
+                  <tr class="text-center">
+                    <th scope="col" class="text-dark-emphasis">N°</th>
+                    <th scope="col" class="text-dark-emphasis miw-22">Número de documento</th>
+                    <th scope="col" class="text-dark-emphasis">Teléfono</th>
+                    <th scope="col" class="text-dark-emphasis miw-18">Nombres</th>
+                    <th scope="col" class="text-dark-emphasis miw-18">Apellido</th>
+                    <th scope="col" class="text-dark-emphasis miw-25">Correo electrónico</th>
+                    <th scope="col" class="text-dark-emphasis">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let teacher of teachers; let index = index; trackBy: trackByTeachers">
+                    <th scope="row" class="text-dark text-center">{{ index + 1 }}</th>
+                    <td class="text-dark-emphasis text-center fw-bolder">{{ teacher.documentNumber }}</td>
+                    <td class="text-dark text-center">{{ teacher.mobile }}</td>
+                    <td class="text-dark text-center">{{ teacher.firstname }}</td>
+                    <td class="text-dark text-center">{{ teacher.lastname }}</td>
+                    <td class="text-center fst-italic">
+                      <a class="text-dark-emphasis" [href]="'mailto:' + teacher.email">{{ teacher.email }}</a>
+                    </td>
+                    <ng-container
+                      [ngTemplateOutlet]="actions"
+                      [ngTemplateOutletContext]="{ $implicit: teacher.teacherId }">
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </table>
+      </overlay-scrollbars>
+      <div class="table-pagination" *ngIf="!action.loading && (teachersLength$ | async)! > 0">
+        <ngb-pagination
+          [collectionSize]="(teachersLength$ | async)!"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          (pageChange)="teachers$ = refreshTeachers$()"
+          [maxSize]="6">
+        </ngb-pagination>
+        <form>
+          <select id="teachers-page-size" class="form-select focus-ring focus-ring-dark" [formControl]="pageSizeItemsControl">
+            <option *ngFor="let page of pageSizeItems" [ngValue]="page">{{ page }} profesores por página</option>
+          </select>
+        </form>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<router-outlet />
+
+<ng-template #actions let-teacherId>
+  <td class="table-actions">
+    <div class="table-actions__content">
+      <a role="button" class="btn text-warning" placement="left" ngbTooltip="Actualizar"
+        [routerLink]="ROUTES.UPDATE + '/' + teacherId">
+        <fa-icon [icon]="['far', 'edit']" size="lg"></fa-icon>
+      </a>
+      <a role="button" class="btn text-danger" placement="left" ngbTooltip="Eliminar"
+        [routerLink]="ROUTES.DELETE + '/' + teacherId">
+        <fa-icon [icon]="['far', 'trash-alt']" size="lg"></fa-icon>
+      </a>
+      <a role="button" class="btn text-primary" placement="left" ngbTooltip="Información"
+        [routerLink]="ROUTES.INFO + '/' + teacherId">
+        <fa-icon [icon]="['far', 'eye']" size="lg"></fa-icon>
+      </a>
+    </div>
+  </td>
+</ng-template>
+
+<ng-template #noTeachersFound>
+  <tbody>
+    <tr>
+      <td colspan="7" class="text-black-50 text-center table-light">No se encontraron profesores</td>
+    </tr>
+  </tbody>
+</ng-template>
+
+<ng-template #loadingTeachers>
+  <tbody>
+    <tr>
+      <th scope="row" colspan="7" class="text-danger text-center table-light">
+        <fa-icon [icon]="['fas', 'spinner']" animation="spin" size="3x"></fa-icon>
+      </th>
+    </tr>
+  </tbody>
+</ng-template>
