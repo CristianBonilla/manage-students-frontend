@@ -16,12 +16,14 @@ import { IconsModule } from '@shared/icons/icons.module';
 import { TEXT_FIELD_PROVIDER } from '@shared/providers/text-field.provider';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
+import { DeleteTeacherComponent } from './components/delete-teacher/delete-teacher.component';
 
 @NgModule({
   declarations: [
     TeachersComponent,
     CreateTeacherComponent,
-    UpdateTeacherComponent
+    UpdateTeacherComponent,
+    DeleteTeacherComponent
   ],
   imports: [
     CommonModule,
