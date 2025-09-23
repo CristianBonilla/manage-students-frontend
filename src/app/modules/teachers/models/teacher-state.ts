@@ -21,7 +21,7 @@ export interface TeacherSelected {
 
 export interface TeachersState {
   teachers: TeacherResponse[] | null;
-  teachersExcluded: TeacherResponse[] | null;
+  teachersBySubject: TeacherResponse[] | null;
   teacherSelected: TeacherSelected | null;
   actions: TeacherActions;
 }
