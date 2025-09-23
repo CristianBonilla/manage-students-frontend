@@ -1,0 +1,59 @@
+<ng-template #createTeacherTemplate>
+  <ng-container *ngIf="createActionType$ | async as action">
+    <div class="modal-header">
+      <h4 class="modal-title fw-bold">Crear un nuevo profesor</h4>
+      <button type="button" class="btn-close focus-ring focus-ring-light" (click)="dismiss()" [disabled]="action.loading"></button>
+    </div>
+    <form autocomplete="off" spellcheck="false" [formGroup]="createTeacherForm" (ngSubmit)="createTeacher()">
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="teacher-subject" class="form-label">Asignatura</label>
+          <select id="teacher-subject" class="form-select form-select-lg focus-ring focus-ring-dark"
+            [formControl]="subjectControl"
+            [msfFormErrorHandler]="{
+              instance: subjectControl,
+              focus: true
+            }">
+            <option [ngValue]="subject" [attr.selected]="subject.selected ? true : null" *ngFor="let subject of subjectNames">{{ subject.text }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="teacher-document-number" class="form-label">Número de documento</label>
+          <input type="text" id="teacher-document-number" class="form-control focus-ring focus-ring-dark" placeholder="Número de documento"
+            [formControl]="documentNumberControl"
+            [msfFormErrorHandler]="documentNumberControl" trim="blur">
+        </div>
+        <div class="mb-3">
+          <label for="teacher-mobile" class="form-label">Télefono</label>
+          <input type="text" id="teacher-mobile" class="form-control focus-ring focus-ring-dark" placeholder="Teléfono"
+            [formControl]="mobileControl"
+            [msfFormErrorHandler]="mobileControl" trim="blur">
+        </div>
+        <div class="mb-3">
+          <label for="teacher-firstname" class="form-label">Nombres</label>
+          <input type="text" id="teacher-firstname" class="form-control focus-ring focus-ring-dark" placeholder="Nombres"
+            [formControl]="firstnameControl"
+            [msfFormErrorHandler]="firstnameControl" trim="blur">
+        </div>
+        <div class="mb-3">
+          <label for="teacher-lastname" class="form-label">Apellido</label>
+          <input type="text" id="teacher-lastname" class="form-control focus-ring focus-ring-dark" placeholder="Apellido"
+            [formControl]="lastnameControl"
+            [msfFormErrorHandler]="lastnameControl" trim="blur">
+        </div>
+        <div class="mb-3">
+          <label for="teacher-email" class="form-label">Correo electrónico</label>
+          <input type="text" id="teacher-email" class="form-control focus-ring focus-ring-dark" placeholder="Correo electrónico"
+            [formControl]="emailControl"
+            [msfFormErrorHandler]="emailControl" trim="blur">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" id="teacher-submit" [ngClass]="['btn', createTeacherForm.invalid || action.loading ? 'btn-danger' : 'btn-success']" [disabled]="createTeacherForm.invalid || action.loading">
+          <fa-icon [icon]="action.loading ? ['fas', 'spinner'] : ['fas', 'plus-circle']" [animation]="action.loading ? 'spin' : undefined"></fa-icon>
+          Crear profesor
+        </button>
+      </div>
+    </form>
+  </ng-container>
+</ng-template>

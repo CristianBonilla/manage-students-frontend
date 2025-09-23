@@ -3,7 +3,11 @@ import { FormControl } from '@angular/forms';
 import { TeachersState } from '@modules/teachers/models/teacher-state';
 import { TeacherResponse } from '@modules/teachers/models/teacher.model';
 import { fetchTeachersAction } from '@modules/teachers/store/actions/teacher.actions';
-import { getActionSelector, getTeachersLengthSelector, paginateTeachersSelector } from '@modules/teachers/store/selectors/teacher.selectors';
+import {
+  getActionSelector,
+  getTeachersLengthSelector,
+  paginateTeachersSelector
+} from '@modules/teachers/store/selectors/teacher.selectors';
 import { Store } from '@ngrx/store';
 import { TEXT_FIELD } from '@shared/providers/text-field.provider';
 import { getError } from '@shared/utils/service-error.util';

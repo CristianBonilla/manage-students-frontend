@@ -1,4 +1,5 @@
 import { Auditable } from 'src/app/models/auditable';
+import { SubjectName } from '@modules/teachers/enums/subject-name.enum';
 
 export interface Teacher {
   documentNumber: string;
@@ -6,6 +7,7 @@ export interface Teacher {
   firstname: string;
   lastname: string;
   email: string;
+  subject: SubjectName;
 }
 
 export interface TeacherRequest extends Teacher { }
