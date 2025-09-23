@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '@directives/directives.module';
 import { CreateTeacherComponent } from '@modules/teachers/components/create-teacher/create-teacher.component';
+import { DeleteTeacherComponent } from '@modules/teachers/components/delete-teacher/delete-teacher.component';
+import { TeacherInfoComponent } from '@modules/teachers/components/teacher-info/teacher-info.component';
 import { UpdateTeacherComponent } from '@modules/teachers/components/update-teacher/update-teacher.component';
 import { TeacherService } from '@modules/teachers/services/teacher.service';
 import { teachersFeatureKey, reducer as teachersReducer } from '@modules/teachers/store';
@@ -16,14 +18,14 @@ import { IconsModule } from '@shared/icons/icons.module';
 import { TEXT_FIELD_PROVIDER } from '@shared/providers/text-field.provider';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
-import { DeleteTeacherComponent } from './components/delete-teacher/delete-teacher.component';
 
 @NgModule({
   declarations: [
     TeachersComponent,
     CreateTeacherComponent,
     UpdateTeacherComponent,
-    DeleteTeacherComponent
+    DeleteTeacherComponent,
+    TeacherInfoComponent
   ],
   imports: [
     CommonModule,

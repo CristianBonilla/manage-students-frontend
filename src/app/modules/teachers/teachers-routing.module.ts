@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateTeacherComponent } from '@modules/teachers/components/create-teacher/create-teacher.component';
 import { DeleteTeacherComponent } from '@modules/teachers/components/delete-teacher/delete-teacher.component';
+import { TeacherInfoComponent } from '@modules/teachers/components/teacher-info/teacher-info.component';
 import { UpdateTeacherComponent } from '@modules/teachers/components/update-teacher/update-teacher.component';
 import { TeachersComponent } from '@modules/teachers/teachers.component';
 
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'delete/:teacherId',
         component: DeleteTeacherComponent
+      },
+      {
+        path: 'info/:teacherId',
+        component: TeacherInfoComponent
       },
       {
         path: '**',

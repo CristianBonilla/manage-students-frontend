@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TeacherInfoComponent } from '@modules/teachers/components/teacher-info/teacher-info.component';
+
+describe('TeacherInfoComponent', () => {
+  let component: TeacherInfoComponent;
+  let fixture: ComponentFixture<TeacherInfoComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [TeacherInfoComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(TeacherInfoComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

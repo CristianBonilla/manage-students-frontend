@@ -1,0 +1,98 @@
+<ng-template #teacherInfoTemplate>
+  <ng-container *ngIf="infoActionType$ | async as action">
+    <ng-container *ngIf="(loadingFetchTeacherById$ | async) === false; else loading">
+      <div class="modal-header">
+        <h4 class="modal-title fw-bold">Descripción del profesor</h4>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="teacher-id" class="form-control" [value]="teacherId">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 d-flex align-items-center gap-1 py-2">
+              <fa-icon [ngClass]="teacher.hasAssociatedGrades === true ? 'text-success' : 'text-danger'" [icon]="teacher.hasAssociatedGrades === true ? ['fas', 'check-circle'] : ['fas', 'times-circle']" size="lg"></fa-icon>
+              <h5 class="text-muted mb-0">{{ teacher.hasAssociatedGrades === true ? 'Si' : 'No' }} tiene calificaciones asociadas</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Asignatura</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="fst-italic text-primary h5 mb-0">{{ subjectText }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Número de documento</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="fw-bold mb-0">{{ teacher.teacher.documentNumber }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Teléfono</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ teacher.teacher.mobile }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Nombres</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ teacher.teacher.firstname }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Apellido</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ teacher.teacher.lastname }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Correo electrónico</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <a class="text-center text-dark-emphasis fst-italic" [href]="'mailto:' + teacher.teacher.email">{{ teacher.teacher.email }}</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Fecha de creación</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ teacher.teacher.createdAt | date: 'EEEE, MMMM d, y' }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Fecha de actualización</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ teacher.teacher.updatedAt| date: 'EEEE, MMMM d, y' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary text-light" (click)="dismiss()">
+          <fa-icon [icon]="['fas', 'times']" size="lg"></fa-icon>
+          Cerrar
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #loading>
+  <div class="container">
+    <div class="d-flex justify-content-center p-3">
+      <fa-icon class="text-black-50" [icon]="['fas', 'spinner']" animation="spin" size="4x"></fa-icon>
+    </div>
+  </div>
+</ng-template>
