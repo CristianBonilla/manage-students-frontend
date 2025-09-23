@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '@directives/directives.module';
 import { CreateTeacherComponent } from '@modules/teachers/components/create-teacher/create-teacher.component';
+import { UpdateTeacherComponent } from '@modules/teachers/components/update-teacher/update-teacher.component';
 import { TeacherService } from '@modules/teachers/services/teacher.service';
 import { teachersFeatureKey, reducer as teachersReducer } from '@modules/teachers/store';
 import { TeacherEffects } from '@modules/teachers/store/effects/teacher.effects';
@@ -19,7 +20,8 @@ import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
 @NgModule({
   declarations: [
     TeachersComponent,
-    CreateTeacherComponent
+    CreateTeacherComponent,
+    UpdateTeacherComponent
   ],
   imports: [
     CommonModule,
