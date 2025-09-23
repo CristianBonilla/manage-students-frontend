@@ -78,13 +78,13 @@ export class DeleteTeacherComponent implements OnInit, AfterViewInit {
       ).subscribe(({ error }) => {
         if (error !== null) {
           this.#toastr.error(
-            'Se presento un error al eliminar estudiante',
+            'Se presento un error al eliminar profesor',
             getError(error)
           );
         } else {
           this.#deleteTeacherModal.close(TeacherOperation.DELETED);
           this.#toastr.success(
-            'Se eliminó el estudiante con éxito',
+            'Se eliminó el profesor con éxito',
             `Número de identificación: ${documentNumber}`
           );
         }
@@ -109,7 +109,7 @@ export class DeleteTeacherComponent implements OnInit, AfterViewInit {
         } else {
           this.#deleteTeacherModal.close(null);
           this.#toastr.error(
-            'Se presento un error al obtener información del estudiante',
+            'Se presento un error al obtener información del profesor',
             getError(error!)
           );
         }

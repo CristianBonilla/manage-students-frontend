@@ -5,11 +5,12 @@
         <input type="hidden" id="teacher-id" class="form-control" [value]="teacherId">
         <div class="card bg-light border-light">
           <div class="card-body">
-            <p class="text-center text-muted h5 mb-0">
-              El profesor con número de identificación <strong>{{ teacher.teacher.documentNumber }}...</strong>
-              <span *ngIf="teacher.hasAssociatedGrades === true">El profesor tiene calificaciones asociadas</span>
-              ¿Desea eliminarlo?
-            </p>
+            <p class="text-center text-muted h5 mb-0">El profesor con número de identificación <strong>{{ teacher.teacher.documentNumber }}...</strong></p>
+            <div class="d-flex align-items-center justify-content-center gap-1" *ngIf="teacher.hasAssociatedGrades === true">
+              <fa-icon class="text-success" [icon]="['fas', 'check-circle']" size="lg"></fa-icon>
+              <span class="text-muted h5 my-1">Tiene calificaciones asociadas</span>
+            </div>
+            <p class="text-center text-muted h5 mb-0">¿Desea eliminarlo?</p>
           </div>
         </div>
       </div>
