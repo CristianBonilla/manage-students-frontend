@@ -18,6 +18,11 @@ const routes: Routes = [
           .then(module => module.TeachersModule)
       },
       {
+        path: 'grades',
+        loadChildren: () => import('@modules/grades/grades.module')
+          .then(module => module.GradesModule)
+      },
+      {
         path: '',
         redirectTo: 'students',
         pathMatch: 'prefix'

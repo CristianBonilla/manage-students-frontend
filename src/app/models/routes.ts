@@ -18,7 +18,11 @@ const APP_ROUTES = {
       INFO: '/home/students/info'
     },
     GRADES: {
-      MAIN: '/home/grades'
+      MAIN: '/home/grades',
+      CREATE: '/home/grades/create',
+      UPDATE: '/home/grades/update',
+      DELETE: '/home/grades/delete',
+      INFO: '/home/grades/info'
     }
   }
 } as const;
