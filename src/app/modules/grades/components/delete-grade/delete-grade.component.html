@@ -1,0 +1,40 @@
+<ng-template #deleteGradeTemplate>
+  <ng-container *ngIf="deleteActionType$ | async as action">
+    <ng-container *ngIf="(loadingFetchGradeById$ | async) === false; else loading">
+      <div class="modal-body">
+        <input type="hidden" id="grade-id" class="form-control" [value]="gradeId">
+        <div class="card bg-light border-light">
+          <div class="card-body">
+            <p class="text-center text-muted h5 mb-0">
+              La calificación del profesor
+              <br>
+              <strong>{{ grade.teacher.documentNumber }}, {{ grade.teacher.firstname }} {{ grade.teacher.lastname }}</strong>
+              y el estudiante
+              <br>
+              <strong>{{ grade.student.documentNumber }}, {{ grade.student.firstname }} {{ grade.student.lastname }}</strong>
+            </p>
+            <p class="text-center text-muted h5 mb-0">¿Desea eliminarlo?</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-secondary text-light" [disabled]="action.loading" (click)="dismiss()">
+          <fa-icon [icon]="['fas', 'times']" size="lg"></fa-icon>
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-danger text-light" [disabled]="action.loading" (click)="deleteGrade()">
+          <fa-icon [icon]="action.loading ? ['fas', 'spinner'] : ['far', 'trash-alt']" [animation]="action.loading ? 'spin' : undefined" size="lg"></fa-icon>
+          Eliminar profesor
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #loading>
+  <div class="container">
+    <div class="d-flex justify-content-center p-3">
+      <fa-icon class="text-black-50" [icon]="['fas', 'spinner']" animation="spin" size="4x"></fa-icon>
+    </div>
+  </div>
+</ng-template>

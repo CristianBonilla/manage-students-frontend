@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateGradeComponent } from '@modules/grades/components/create-grade/create-grade.component';
-import { GradesComponent } from '@modules/grades/grades.component';
+import { DeleteGradeComponent } from '@modules/grades/components/delete-grade/delete-grade.component';
 import { UpdateGradeComponent } from '@modules/grades/components/update-grade/update-grade.component';
+import { GradesComponent } from '@modules/grades/grades.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'update/:gradeId',
         component: UpdateGradeComponent
+      },
+      {
+        path: 'delete/:gradeId',
+        component: DeleteGradeComponent
       },
       {
         path: '**',
