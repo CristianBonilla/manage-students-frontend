@@ -1,1 +1,107 @@
-<p>grades works!</p>
+<div class="container-fluid px-0 px-sm-2 px-lg-3 padding-transition">
+  <div class="table-container">
+    <div class="bg-dark">
+      <h4 class="text-light my-1 my-sm-0 px-3 pb-2 pt-3">Calificaciones</h4>
+      <div class="d-sm-flex justify-content-between align-items-center px-3 pb-3 pt-2">
+        <form autocomplete="off" spellcheck="false" [ngStyle]="{ 'max-width.px': 300, 'width.%': 100 }">
+          <input type="text" id="search-grades" class="form-control focus-ring focus-ring-dark"
+            placeholder="Buscar calificaciones..."
+            [formControl]="textControl" #text />
+        </form>
+        <a type="button" class="btn btn-outline-light mt-2 mb-1 my-sm-0" [routerLink]="ROUTES.CREATE">
+          <fa-icon [icon]="['fas', 'plus-circle']" size="lg"></fa-icon>
+          Nueva calificación
+        </a>
+      </div>
+    </div>
+    <ng-container *ngIf="generalActionType$ | async as action">
+      <overlay-scrollbars class="table-responsive-sm" [defer]="true" [options]="scrollbarOptions">
+        <table class="table table-bordered table-striped">
+          <ng-container *ngIf="(action.loading === false || action.error === null) && (grades$ | async) !== null; else loadingGrades">
+            <ng-container *ngIf="grades$ | async as grades">
+              <ng-container *ngIf="grades.length > 0; else noGradesFound">
+                <thead class="thead-dark">
+                  <tr class="text-center">
+                    <th scope="col" class="text-dark-emphasis">N°</th>
+                    <th scope="col" class="text-dark-emphasis miw-22">Profesor</th>
+                    <th scope="col" class="text-dark-emphasis miw-22">Estudiante</th>
+                    <th scope="col" class="text-dark-emphasis">Calificación</th>
+                    <th scope="col" class="text-dark-emphasis">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let grade of grades; let index = index; trackBy: trackByGrades">
+                    <th scope="row" class="text-dark text-center">{{ index + 1 }}</th>
+                    <td class="text-dark-emphasis">
+                      <span class="fw-bolder">{{ grade.teacher.documentNumber }}</span>, <span class="fst-italic">{{ grade.teacher.firstname }} {{ grade.teacher.lastname }}</span>
+                    </td>
+                    <td class="text-dark-emphasis">
+                      <span class="fw-bolder">{{ grade.student.documentNumber }}</span>, <span class="fst-italic">{{ grade.student.firstname }} {{ grade.student.lastname }}</span>
+                    </td>
+                    <td class="text-dark text-center">{{ grade.value }}</td>
+                    <ng-container
+                      [ngTemplateOutlet]="actions"
+                      [ngTemplateOutletContext]="{ $implicit: grade.gradeId }">
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </table>
+      </overlay-scrollbars>
+      <div class="table-pagination" *ngIf="!action.loading && (gradesLength$ | async)! > 0">
+        <ngb-pagination
+          [collectionSize]="(gradesLength$ | async)!"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          (pageChange)="grades$ = refreshGrades$()"
+          [maxSize]="6">
+        </ngb-pagination>
+        <form>
+          <select id="grades-page-size" class="form-select focus-ring focus-ring-dark" [formControl]="pageSizeItemsControl">
+            <option *ngFor="let page of pageSizeItems" [ngValue]="page">{{ page }} calificaciones por página</option>
+          </select>
+        </form>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<router-outlet />
+
+<ng-template #actions let-gradeId>
+  <td class="table-actions">
+    <div class="table-actions__content">
+      <a role="button" class="btn text-warning" placement="left" ngbTooltip="Actualizar"
+        [routerLink]="ROUTES.UPDATE + '/' + gradeId">
+        <fa-icon [icon]="['far', 'edit']" size="lg"></fa-icon>
+      </a>
+      <a role="button" class="btn text-danger" placement="left" ngbTooltip="Eliminar"
+        [routerLink]="ROUTES.DELETE + '/' + gradeId">
+        <fa-icon [icon]="['far', 'trash-alt']" size="lg"></fa-icon>
+      </a>
+      <a role="button" class="btn text-primary" placement="left" ngbTooltip="Información"
+        [routerLink]="ROUTES.INFO + '/' + gradeId">
+        <fa-icon [icon]="['far', 'eye']" size="lg"></fa-icon>
+      </a>
+    </div>
+  </td>
+</ng-template>
+
+<ng-template #noGradesFound>
+  <tbody>
+    <tr>
+      <td colspan="7" class="text-black-50 text-center table-light">No se encontraron calificaciones</td>
+    </tr>
+  </tbody>
+</ng-template>
+
+<ng-template #loadingGrades>
+  <tbody>
+    <tr>
+      <th scope="row" colspan="7" class="text-danger text-center table-light">
+        <fa-icon [icon]="['fas', 'spinner']" animation="spin" size="3x"></fa-icon>
+      </th>
+    </tr>
+  </tbody>
+</ng-template>

@@ -7,6 +7,8 @@ import { GradesComponent } from '@modules/grades/grades.component';
 import { GradeService } from '@modules/grades/services/grade.service';
 import { gradesFeatureKey, reducer as gradesReducer } from '@modules/grades/store';
 import { GradeEffects } from '@modules/grades/store/effects/grade.effects';
+import { StudentService } from '@modules/students/services/student.service';
+import { TeacherService } from '@modules/teachers/services/teacher.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -30,6 +32,11 @@ import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
     NgxTrimDirectiveModule,
     DirectivesModule
   ],
-  providers: [GradeService, TEXT_FIELD_PROVIDER]
+  providers: [
+    GradeService,
+    TeacherService,
+    StudentService,
+    TEXT_FIELD_PROVIDER
+  ]
 })
 export class GradesModule { }
