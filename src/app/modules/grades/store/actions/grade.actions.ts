@@ -1,5 +1,5 @@
 import { GradeActions } from '@modules/grades/models/grade-state';
-import { GradeRequest, GradeResponse } from '@modules/grades/models/grade.model';
+import { GradeRequest, GradeResponse, GradeResponseExtended } from '@modules/grades/models/grade.model';
 import { createAction, props } from '@ngrx/store';
 import { ServiceError } from 'src/app/models/service-error';
 
@@ -31,7 +31,7 @@ export const addGradeFailureAction = createAction(
 );
 export const addGradeSuccessAction = createAction(
   GRADES_ACTIONS.ADD_GRADE_SUCCESS,
-  props<{ grade: GradeResponse }>()
+  props<{ grade: GradeResponseExtended }>()
 );
 
 export const updateGradeAction = createAction(
@@ -44,7 +44,7 @@ export const updateGradeFailureAction = createAction(
 );
 export const updateGradeSuccessAction = createAction(
   GRADES_ACTIONS.UPDATE_GRADE_SUCCESS,
-  props<{ grade: GradeResponse }>()
+  props<{ grade: GradeResponseExtended }>()
 );
 
 export const deleteGradeAction = createAction(
@@ -57,7 +57,7 @@ export const deleteGradeFailureAction = createAction(
 );
 export const deleteGradeSuccessAction = createAction(
   GRADES_ACTIONS.DELETE_GRADE_SUCCESS,
-  props<{ grade: GradeResponse }>()
+  props<{ grade: GradeResponseExtended }>()
 );
 
 export const fetchGradesAction = createAction(GRADES_ACTIONS.FETCH_GRADES);
@@ -67,7 +67,7 @@ export const fetchGradesFailureAction = createAction(
 );
 export const fetchGradesSuccessAction = createAction(
   GRADES_ACTIONS.FETCH_GRADES_SUCCESS,
-  props<{ grades: GradeResponse[] }>()
+  props<{ grades: GradeResponseExtended[] }>()
 );
 
 export const fetchGradeByIdAction = createAction(
@@ -80,5 +80,5 @@ export const fetchGradeByIdFailureAction = createAction(
 );
 export const fetchGradeByIdSuccessAction = createAction(
   GRADES_ACTIONS.FETCH_GRADE_BY_ID_SUCCESS,
-  props<{ actionType: keyof GradeActions, grade: GradeResponse }>()
+  props<{ actionType: keyof GradeActions, grade: GradeResponseExtended }>()
 );

@@ -1,4 +1,4 @@
-import { GradeResponse } from '@modules/grades/models/grade.model';
+import { GradeResponseExtended } from '@modules/grades/models/grade.model';
 import { ServiceError } from 'src/app/models/service-error';
 
 export interface GradeActionInfo {
@@ -15,7 +15,7 @@ export interface GradeActions {
 }
 
 export interface GradesState {
-  grades: GradeResponse[] | null;
-  gradeSelected: GradeResponse | null;
+  grades: GradeResponseExtended[] | null;
+  gradeSelected: GradeResponseExtended | null;
   actions: GradeActions;
 }
