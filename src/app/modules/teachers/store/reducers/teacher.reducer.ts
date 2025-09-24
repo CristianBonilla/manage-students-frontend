@@ -1,5 +1,5 @@
 import { TeacherActions, TeachersState } from '@modules/teachers/models/teacher-state';
-import { addTeacherAction, addTeacherFailureAction, addTeacherSuccessAction, deleteTeacherAction, deleteTeacherFailureAction, deleteTeacherSuccessAction, fetchTeacherByIdAction, fetchTeacherByIdFailureAction, fetchTeacherByIdSuccessAction, fetchTeachersAction, fetchTeachersBySubjectAction, fetchTeachersBySubjectFailureAction, fetchTeachersBySubjectSuccessAction, fetchTeachersFailureAction, fetchTeachersSuccessAction, updateTeacherAction, updateTeacherFailureAction, updateTeacherSuccessAction } from '@modules/teachers/store/actions/teacher.actions';
+import { addTeacherAction, addTeacherFailureAction, addTeacherSuccessAction, clearTeachersBySubjectAction, deleteTeacherAction, deleteTeacherFailureAction, deleteTeacherSuccessAction, fetchTeacherByIdAction, fetchTeacherByIdFailureAction, fetchTeacherByIdSuccessAction, fetchTeachersAction, fetchTeachersBySubjectAction, fetchTeachersBySubjectFailureAction, fetchTeachersBySubjectSuccessAction, fetchTeachersFailureAction, fetchTeachersSuccessAction, updateTeacherAction, updateTeacherFailureAction, updateTeacherSuccessAction } from '@modules/teachers/store/actions/teacher.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 import { ServiceError } from 'src/app/models/service-error';
 
@@ -138,6 +138,10 @@ const teachersReducer = createReducer(
     ...state,
     teachersBySubject: teachers,
     actions: updateAction(state, actionType, false)
+  })),
+  on(clearTeachersBySubjectAction, state => ({
+    ...state,
+    teachersBySubject: null
   }))
 );
 

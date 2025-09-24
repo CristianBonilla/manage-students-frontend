@@ -3,6 +3,7 @@ import {
   addStudentAction,
   addStudentFailureAction,
   addStudentSuccessAction,
+  clearStudentsExcludedByTeacherAction,
   deleteStudentAction,
   deleteStudentFailureAction,
   deleteStudentSuccessAction,
@@ -157,6 +158,10 @@ const studentsReducer = createReducer(
     ...state,
     studentsExcluded: students,
     actions: updateAction(state, actionType, false)
+  })),
+  on(clearStudentsExcludedByTeacherAction, state => ({
+    ...state,
+    studentsExcluded: null
   }))
 );
 

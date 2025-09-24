@@ -1,0 +1,52 @@
+<ng-template #createGradeTemplate>
+  <ng-container *ngIf="createActionType$ | async as action">
+    <div class="modal-header">
+      <h4 class="modal-title fw-bold">Crear una nueva calificación</h4>
+      <button type="button" class="btn-close focus-ring focus-ring-light" (click)="dismiss()" [disabled]="action.loading"></button>
+    </div>
+    <form autocomplete="off" spellcheck="false" [formGroup]="createGradeForm" (ngSubmit)="createGrade()">
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="grade-subject" class="form-label">Asignatura</label>
+          <select id="grade-subject" class="form-select form-select-lg focus-ring focus-ring-dark"
+            [formControl]="subjectControl"
+            [msfFormErrorHandler]="{
+              instance: subjectControl,
+              focus: true
+            }">
+            <option [ngValue]="subject" [attr.selected]="subject.selected ? true : null" *ngFor="let subject of subjectNames">{{ subject.text }}</option>
+          </select>
+        </div>
+        <div class="mb-3" *ngIf="teachersBySubject$ | async as teachers">
+          <label for="grade-teacher" class="form-label">Profesor</label>
+          <select id="grade-teacher" class="form-select form-select-lg focus-ring focus-ring-dark"
+            [formControl]="teacherControl"
+            [msfFormErrorHandler]="teacherControl">
+            <option [ngValue]="teacher.teacherId" *ngFor="let teacher of teachers">{{ teacher.documentNumber }}, {{ teacher.firstname }} {{ teacher.lastname }}</option>
+          </select>
+        </div>
+        <div class="mb-3" *ngIf="studentsExcludedByTeacher$ | async as students">
+          <label for="grade-student" class="form-label">Estudiante</label>
+          <select id="grade-student" class="form-select form-select-lg focus-ring focus-ring-dark"
+            [formControl]="studentControl"
+            [msfFormErrorHandler]="studentControl">
+            <option [ngValue]="student.studentId" *ngFor="let student of students">{{ student.documentNumber }}, {{ student.firstname }} {{ student.lastname }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="grade-value" class="form-label">Calificación</label>
+          <input type="text" id="grade-value" class="form-control focus-ring focus-ring-dark" placeholder="Calificación"
+            [formControl]="valueControl"
+            [msfFormErrorHandler]="valueControl"
+            currencyMask [options]="{ align: 'left', prefix: '', precision: 1, allowNegative: false }" trim="blur">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" id="grade-submit" [ngClass]="['btn', createGradeForm.invalid || action.loading ? 'btn-danger' : 'btn-success']" [disabled]="createGradeForm.invalid || action.loading">
+          <fa-icon [icon]="action.loading ? ['fas', 'spinner'] : ['fas', 'plus-circle']" [animation]="action.loading ? 'spin' : undefined"></fa-icon>
+          Crear calificación
+        </button>
+      </div>
+    </form>
+  </ng-container>
+</ng-template>

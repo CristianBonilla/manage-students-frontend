@@ -21,7 +21,8 @@ export enum STUDENTS_ACTIONS {
   FETCH_STUDENT_BY_ID_SUCCESS = '[Students/API] Fetch Student By Id Success',
   FETCH_STUDENTS_EXCLUDED_BY_TEACHER = '[Students/Store] Fetch Students Except Teacher Id',
   FETCH_STUDENTS_EXCLUDED_BY_TEACHER_FAILURE = '[Students/API] Fetch Students Except Teacher Id Failure',
-  FETCH_STUDENTS_EXCLUDED_BY_TEACHER_SUCCESS = '[Students/API] Fetch Students Except Teacher Id Success'
+  FETCH_STUDENTS_EXCLUDED_BY_TEACHER_SUCCESS = '[Students/API] Fetch Students Except Teacher Id Success',
+  CLEAR_STUDENTS_EXCLUDED_BY_TEACHER = '[Students/Store] Clear Students Except Teacher Id'
 }
 
 export const addStudentAction = createAction(
@@ -98,3 +99,5 @@ export const fetchStudentsExcludedByTeacherSuccessAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENTS_EXCLUDED_BY_TEACHER_SUCCESS,
   props<{ actionType: keyof StudentActions, students: StudentResponse[] }>()
 );
+
+export const clearStudentsExcludedByTeacherAction = createAction(STUDENTS_ACTIONS.CLEAR_STUDENTS_EXCLUDED_BY_TEACHER);
