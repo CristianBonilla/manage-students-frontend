@@ -1,0 +1,76 @@
+<ng-template #gradeInfoTemplate>
+  <ng-container *ngIf="infoActionType$ | async as action">
+    <ng-container *ngIf="(loadingFetchGradeById$ | async) === false; else loading">
+      <div class="modal-header">
+        <h4 class="modal-title fw-bold">Descripción del profesor</h4>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="grade-id" class="form-control" [value]="gradeId">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Asignatura</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="fst-italic text-primary h5 mb-0">{{ subjectText }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Profesor</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-secondary fw-bold mb-0">{{ grade.teacher.documentNumber }}, {{ grade.teacher.firstname }} {{ grade.teacher.lastname }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Estudiante</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-secondary fw-bold mb-0">{{ grade.student.documentNumber }}, {{ grade.student.firstname }} {{ grade.student.lastname }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Calificación</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-primary h5 mb-0">{{ grade.value | number : '1.1-1' }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Fecha de creación</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ grade.createdAt | date: 'EEEE, MMMM d, y' }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <h5 class="text-muted mb-0">Fecha de actualización</h5>
+            </div>
+            <div class="col-sm-6 d-flex align-items-center py-2">
+              <p class="text-body mb-0">{{ grade.updatedAt| date: 'EEEE, MMMM d, y' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary text-light" (click)="dismiss()">
+          <fa-icon [icon]="['fas', 'times']" size="lg"></fa-icon>
+          Cerrar
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #loading>
+  <div class="container">
+    <div class="d-flex justify-content-center p-3">
+      <fa-icon class="text-black-50" [icon]="['fas', 'spinner']" animation="spin" size="4x"></fa-icon>
+    </div>
+  </div>
+</ng-template>

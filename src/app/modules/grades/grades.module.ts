@@ -24,13 +24,15 @@ import { TEXT_FIELD_PROVIDER } from '@shared/providers/text-field.provider';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
+import { GradeInfoComponent } from './components/grade-info/grade-info.component';
 
 @NgModule({
   declarations: [
     GradesComponent,
     CreateGradeComponent,
     UpdateGradeComponent,
-    DeleteGradeComponent
+    DeleteGradeComponent,
+    GradeInfoComponent
   ],
   imports: [
     CommonModule,
