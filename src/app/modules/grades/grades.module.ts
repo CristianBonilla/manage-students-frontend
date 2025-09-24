@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '@directives/directives.module';
 import { CreateGradeComponent } from '@modules/grades/components/create-grade/create-grade.component';
+import { UpdateGradeComponent } from '@modules/grades/components/update-grade/update-grade.component';
 import { GradesRoutingModule } from '@modules/grades/grades-routing.module';
 import { GradesComponent } from '@modules/grades/grades.component';
 import { GradeService } from '@modules/grades/services/grade.service';
@@ -26,7 +27,8 @@ import { OverlayscrollbarsModule } from 'overlayscrollbars-ngx';
 @NgModule({
   declarations: [
     GradesComponent,
-    CreateGradeComponent
+    CreateGradeComponent,
+    UpdateGradeComponent
   ],
   imports: [
     CommonModule,

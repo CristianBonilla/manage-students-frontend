@@ -35,7 +35,7 @@
         </div>
         <div class="mb-3">
           <label for="grade-value" class="form-label">Calificación</label>
-          <input type="text" id="grade-value" class="form-control focus-ring focus-ring-dark" placeholder="Calificación"
+          <input type="text" id="grade-value" class="form-control form-control-lg focus-ring focus-ring-dark" placeholder="Calificación"
             [formControl]="valueControl"
             [msfFormErrorHandler]="valueControl"
             currencyMask [options]="{ align: 'left', prefix: '', precision: 1, allowNegative: false }" trim="blur">

@@ -1,0 +1,59 @@
+<ng-template #updateGradeTemplate>
+  <ng-container *ngIf="updateActionType$ | async as action">
+    <ng-container *ngIf="(loadingFetchGradeById$ | async) === false; else loading">
+      <div class="modal-header">
+        <h4 class="modal-title fw-bold">Actualizar calificación</h4>
+        <button type="button" class="btn-close focus-ring focus-ring-light" (click)="dismiss()" [disabled]="action.loading"></button>
+      </div>
+      <form autocomplete="off" spellcheck="false" [formGroup]="updateGradeForm" (ngSubmit)="updateGrade()">
+        <div class="modal-body">
+          <div class="mb-0">
+            <input type="hidden" id="grade-id" class="form-control" [value]="gradeId">
+          </div>
+          <div class="mb-3">
+            <label for="grade-subject" class="form-label">Asignatura</label>
+            <input type="text" id="grade-subject" class="form-control focus-ring focus-ring-dark"
+              [formControl]="subjectControl"
+              [msfFormErrorHandler]="subjectControl" trim="blur">
+          </div>
+          <div class="mb-3">
+            <label for="grade-teacher" class="form-label">Profesor</label>
+            <input type="text" id="grade-teacher" class="form-control focus-ring focus-ring-dark"
+              [formControl]="teacherControl"
+              [msfFormErrorHandler]="teacherControl" trim="blur">
+          </div>
+          <div class="mb-3">
+            <label for="grade-student" class="form-label">Estudiante</label>
+            <input type="text" id="grade-student" class="form-control focus-ring focus-ring-dark"
+              [formControl]="studentControl"
+              [msfFormErrorHandler]="studentControl" trim="blur">
+          </div>
+          <div class="mb-3">
+            <label for="grade-value" class="form-label">Calificación</label>
+            <input type="text" id="grade-value" class="form-control form-control-lg focus-ring focus-ring-dark" placeholder="Calificación"
+              [formControl]="valueControl"
+              [msfFormErrorHandler]="{
+                instance: valueControl,
+                focus: true
+              }"
+              currencyMask [options]="{ align: 'left', prefix: '', precision: 1, allowNegative: false }" trim="blur">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" id="grade-submit" [ngClass]="['btn', updateGradeForm.invalid || action.loading ? 'btn-danger' : 'btn-success']" [disabled]="updateGradeForm.invalid || action.loading">
+            <fa-icon [icon]="action.loading ? ['fas', 'spinner'] : ['far', 'edit']" [animation]="action.loading ? 'spin' : undefined"></fa-icon>
+            Actualizar calificación
+          </button>
+        </div>
+      </form>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #loading>
+  <div class="container">
+    <div class="d-flex justify-content-center p-3">
+      <fa-icon class="text-black-50" [icon]="['fas', 'spinner']" animation="spin" size="4x"></fa-icon>
+    </div>
+  </div>
+</ng-template>
