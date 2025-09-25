@@ -6,7 +6,9 @@ import { GradesState } from '@modules/grades/models/grade-state';
 import { GradeOperation, GradeRequest, GradeResponseExtended } from '@modules/grades/models/grade.model';
 import { fetchGradeByIdAction, fetchGradesAction, updateGradeAction } from '@modules/grades/store/actions/grade.actions';
 import { getActionSelector, getGradeSelector } from '@modules/grades/store/selectors/grade.selectors';
+import { fetchStudentByIdAction } from '@modules/students/store/actions/student.actions';
 import { SUBJECT_NAMES_SELECT } from '@modules/teachers/constants/teacher.constants';
+import { fetchTeacherByIdAction } from '@modules/teachers/store/actions/teacher.actions';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TEXT_FIELD } from '@shared/providers/text-field.provider';
@@ -170,6 +172,8 @@ export class UpdateGradeComponent implements OnInit {
       .subscribe(state => {
         this.#textFieldProvider.focus();
         if (state === GradeOperation.UPDATED) {
+          this.#store.dispatch(fetchStudentByIdAction({ studentId: this.studentControl.value }));
+          this.#store.dispatch(fetchTeacherByIdAction({ teacherId: this.teacherControl.value }));
           this.#store.dispatch(fetchGradesAction());
         }
       });

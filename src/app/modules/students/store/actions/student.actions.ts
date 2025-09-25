@@ -1,5 +1,5 @@
 import { StudentRequest, StudentResponse } from "@modules/students/models/student.model";
-import { StudentActions } from "@modules/students/models/students-state";
+import { StudentActions, StudentSelected } from "@modules/students/models/students-state";
 import { createAction, props } from "@ngrx/store";
 import { ServiceError } from "src/app/models/service-error";
 
@@ -76,15 +76,15 @@ export const fetchStudentsSuccessAction = createAction(
 
 export const fetchStudentByIdAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENT_BY_ID,
-  props<{ actionType: keyof StudentActions, studentId: string }>()
+  props<{ actionType?: keyof StudentActions, studentId: string }>()
 );
 export const fetchStudentByIdFailureAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENT_BY_ID_FAILURE,
-  props<{ actionType: keyof StudentActions, error: ServiceError }>()
+  props<{ actionType?: keyof StudentActions, error: ServiceError }>()
 );
 export const fetchStudentByIdSuccessAction = createAction(
   STUDENTS_ACTIONS.FETCH_STUDENT_BY_ID_SUCCESS,
-  props<{ actionType: keyof StudentActions, student: StudentResponse, hasAssociatedGrades: boolean }>()
+  props<{ actionType?: keyof StudentActions, student: StudentResponse, hasAssociatedGrades: boolean }>()
 );
 
 export const fetchStudentsExcludedByTeacherAction = createAction(

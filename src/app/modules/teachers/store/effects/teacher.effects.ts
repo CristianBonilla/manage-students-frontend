@@ -21,7 +21,7 @@ import {
   updateTeacherSuccessAction
 } from '@modules/teachers/store/actions/teacher.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, delay, map, of, switchMap, zip } from 'rxjs';
+import { catchError, delay, map, of, switchMap, timer, zip } from 'rxjs';
 import { DEFAULT_WAIT } from 'src/app/constants/common.constants';
 import { ServiceError } from 'src/app/models/service-error';
 
@@ -93,19 +93,22 @@ export class TeacherEffects {
   fetchTeacherById$ = createEffect(() => this.#actions
     .pipe(
       ofType(fetchTeacherByIdAction),
-      delay(DEFAULT_WAIT),
       switchMap(({ actionType, teacherId }) =>
-        zip([
-          this.#teacherService.fetchTeacherById(teacherId),
-          this.#teacherService.hasAssociatedGrades(teacherId)
-        ])
-        .pipe(
-          map(([teacher, hasAssociatedGrades]) => fetchTeacherByIdSuccessAction({ actionType, teacher, hasAssociatedGrades })),
-          catchError(httpError => {
-            const error: ServiceError = httpError.error ?? httpError;
+        timer(!actionType ? 0 : DEFAULT_WAIT)
+          .pipe(
+            switchMap(() =>
+              zip([
+                this.#teacherService.fetchTeacherById(teacherId),
+                this.#teacherService.hasAssociatedGrades(teacherId)
+              ])
+              .pipe(
+                map(([teacher, hasAssociatedGrades]) => fetchTeacherByIdSuccessAction({ actionType, teacher, hasAssociatedGrades })),
+                catchError(httpError => {
+                  const error: ServiceError = httpError.error ?? httpError;
 
-            return of(fetchTeacherByIdFailureAction({ actionType, error }));
-          })
+                  return of(fetchTeacherByIdFailureAction({ actionType, error }));
+                })
+              ))
         ))
     ));
 

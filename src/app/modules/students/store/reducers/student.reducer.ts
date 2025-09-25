@@ -96,7 +96,9 @@ const studentsReducer = createReducer(
     ...state,
     studentSelected: {
       student,
-      hasAssociatedGrades: null
+      hasAssociatedGrades: student.studentId === state.studentSelected?.student.studentId
+        ? state.studentSelected.hasAssociatedGrades
+        : null
     },
     actions: updateAction(state, 'update', false)
   })),
@@ -112,7 +114,9 @@ const studentsReducer = createReducer(
     ...state,
     studentSelected: {
       student,
-      hasAssociatedGrades: null
+      hasAssociatedGrades: student.studentId === state.studentSelected?.student.studentId
+        ? state.studentSelected.hasAssociatedGrades
+        : null
     },
     actions: updateAction(state, 'delete', false)
   })),
@@ -132,11 +136,11 @@ const studentsReducer = createReducer(
   })),
   on(fetchStudentByIdAction, (state, { actionType }) => ({
     ...state,
-    actions: updateAction(state, actionType, true, null)
+    actions: !actionType ? state.actions : updateAction(state, actionType, true, null)
   })),
   on(fetchStudentByIdFailureAction, (state, { actionType, error }) => ({
     ...state,
-    actions: updateAction(state, actionType, false, error)
+    actions: !actionType ? state.actions : updateAction(state, actionType, false, error)
   })),
   on(fetchStudentByIdSuccessAction, (state, { actionType, student, hasAssociatedGrades }) => ({
     ...state,
@@ -144,7 +148,7 @@ const studentsReducer = createReducer(
       student,
       hasAssociatedGrades
     },
-    actions: updateAction(state, actionType, false)
+    actions: !actionType ? state.actions : updateAction(state, actionType, false)
   })),
   on(fetchStudentsExcludedByTeacherAction, (state, { actionType }) => ({
     ...state,

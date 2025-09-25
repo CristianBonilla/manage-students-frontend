@@ -8,11 +8,15 @@ import { GradeOperation, GradeRequest } from '@modules/grades/models/grade.model
 import { addGradeAction, fetchGradesAction } from '@modules/grades/store/actions/grade.actions';
 import { getActionSelector } from '@modules/grades/store/selectors/grade.selectors';
 import { StudentResponse } from '@modules/students/models/student.model';
-import { clearStudentsExcludedByTeacherAction, fetchStudentsExcludedByTeacherAction } from '@modules/students/store/actions/student.actions';
+import { clearStudentsExcludedByTeacherAction, fetchStudentByIdAction, fetchStudentsExcludedByTeacherAction } from '@modules/students/store/actions/student.actions';
 import { getStudentsExcludedSelector } from '@modules/students/store/selectors/students.selectors';
 import { SUBJECT_NAMES_SELECT } from '@modules/teachers/constants/teacher.constants';
 import { TeacherResponse } from '@modules/teachers/models/teacher.model';
-import { clearTeachersBySubjectAction, fetchTeachersBySubjectAction } from '@modules/teachers/store/actions/teacher.actions';
+import {
+  clearTeachersBySubjectAction,
+  fetchTeacherByIdAction,
+  fetchTeachersBySubjectAction
+} from '@modules/teachers/store/actions/teacher.actions';
 import { getTeachersBySubjectSelector } from '@modules/teachers/store/selectors/teacher.selectors';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -150,6 +154,8 @@ export class CreateGradeComponent implements AfterViewInit {
         this.#store.dispatch(clearStudentsExcludedByTeacherAction());
         this.#textFieldProvider.focus();
         if (state === GradeOperation.CREATED) {
+          this.#store.dispatch(fetchStudentByIdAction({ studentId: this.studentControl.value }));
+          this.#store.dispatch(fetchTeacherByIdAction({ teacherId: this.teacherControl.value }));
           this.#store.dispatch(fetchGradesAction());
         }
       });

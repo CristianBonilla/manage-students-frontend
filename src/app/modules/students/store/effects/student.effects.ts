@@ -21,7 +21,7 @@ import {
   updateStudentSuccessAction
 } from '@modules/students/store/actions/student.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, delay, map, of, switchMap, zip } from 'rxjs';
+import { catchError, delay, map, of, switchMap, timer, zip } from 'rxjs';
 import { DEFAULT_WAIT } from 'src/app/constants/common.constants';
 import { ServiceError } from 'src/app/models/service-error';
 
@@ -93,19 +93,22 @@ export class StudentEffects {
   fetchStudentById$ = createEffect(() => this.#actions
     .pipe(
       ofType(fetchStudentByIdAction),
-      delay(DEFAULT_WAIT),
       switchMap(({ actionType, studentId }) =>
-        zip([
-          this.#studentService.fetchStudentById(studentId),
-          this.#studentService.hasAssociatedGrades(studentId)
-        ])
-        .pipe(
-          map(([student, hasAssociatedGrades]) => fetchStudentByIdSuccessAction({ actionType, student, hasAssociatedGrades })),
-          catchError(httpError => {
-            const error: ServiceError = httpError.error ?? httpError;
+        timer(!actionType ? 0 : DEFAULT_WAIT)
+          .pipe(
+            switchMap(() =>
+              zip([
+                this.#studentService.fetchStudentById(studentId),
+                this.#studentService.hasAssociatedGrades(studentId)
+              ])
+              .pipe(
+                map(([student, hasAssociatedGrades]) => fetchStudentByIdSuccessAction({ actionType, student, hasAssociatedGrades })),
+                catchError(httpError => {
+                  const error: ServiceError = httpError.error ?? httpError;
 
-            return of(fetchStudentByIdFailureAction({ actionType, error }));
-          })
+                  return of(fetchStudentByIdFailureAction({ actionType, error }));
+                })
+              ))
         ))
     ));
 

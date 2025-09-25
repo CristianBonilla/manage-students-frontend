@@ -38,7 +38,7 @@
                     <td class="text-dark-emphasis">
                       <span class="fw-bolder">{{ grade.student.documentNumber }}</span>, <span class="fst-italic">{{ grade.student.firstname }} {{ grade.student.lastname }}</span>
                     </td>
-                    <td class="text-dark text-center">{{ grade.value }}</td>
+                    <td class="text-dark text-center">{{ grade.value | number: '1.1-1' }}</td>
                     <ng-container
                       [ngTemplateOutlet]="actions"
                       [ngTemplateOutletContext]="{ $implicit: grade.gradeId }">

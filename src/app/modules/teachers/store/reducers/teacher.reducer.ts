@@ -73,12 +73,14 @@ const teachersReducer = createReducer(
     actions: updateAction(state, 'update', false, error)
   })),
   on(updateTeacherSuccessAction, (state, { teacher }) => ({
-    ...state,
-    teacherSelected: {
-      teacher,
-      hasAssociatedGrades: null
-    },
-    actions: updateAction(state, 'update', false)
+      ...state,
+      teacherSelected: {
+        teacher,
+        hasAssociatedGrades: teacher.teacherId === state.teacherSelected?.teacher.teacherId
+          ? state.teacherSelected.hasAssociatedGrades
+          : null
+      },
+      actions: updateAction(state, 'update', false)
   })),
   on(deleteTeacherAction, state => ({
     ...state,
@@ -92,7 +94,9 @@ const teachersReducer = createReducer(
     ...state,
     teacherSelected: {
       teacher,
-      hasAssociatedGrades: null
+      hasAssociatedGrades: teacher.teacherId === state.teacherSelected?.teacher.teacherId
+        ? state.teacherSelected.hasAssociatedGrades
+        : null
     },
     actions: updateAction(state, 'delete', false)
   })),
@@ -112,11 +116,11 @@ const teachersReducer = createReducer(
   })),
   on(fetchTeacherByIdAction, (state, { actionType }) => ({
     ...state,
-    actions: updateAction(state, actionType, true, null)
+    actions: !actionType ? state.actions : updateAction(state, actionType, true, null)
   })),
   on(fetchTeacherByIdFailureAction, (state, { actionType, error }) => ({
     ...state,
-    actions: updateAction(state, actionType, false, error)
+    actions: !actionType ? state.actions : updateAction(state, actionType, false, error)
   })),
   on(fetchTeacherByIdSuccessAction, (state, { actionType, teacher, hasAssociatedGrades }) => ({
     ...state,
@@ -124,7 +128,7 @@ const teachersReducer = createReducer(
       teacher,
       hasAssociatedGrades
     },
-    actions: updateAction(state, actionType, false)
+    actions: !actionType ? state.actions : updateAction(state, actionType, false)
   })),
   on(fetchTeachersBySubjectAction, (state, { actionType }) => ({
     ...state,

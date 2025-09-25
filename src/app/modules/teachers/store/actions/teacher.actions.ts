@@ -77,15 +77,15 @@ export const fetchTeachersSuccessAction = createAction(
 
 export const fetchTeacherByIdAction = createAction(
   TEACHERS_ACTIONS.FETCH_TEACHER_BY_ID,
-  props<{ actionType: keyof TeacherActions, teacherId: string }>()
+  props<{ actionType?: keyof TeacherActions, teacherId: string }>()
 );
 export const fetchTeacherByIdFailureAction = createAction(
   TEACHERS_ACTIONS.FETCH_TEACHER_BY_ID_FAILURE,
-  props<{ actionType: keyof TeacherActions, error: ServiceError }>()
+  props<{ actionType?: keyof TeacherActions, error: ServiceError }>()
 );
 export const fetchTeacherByIdSuccessAction = createAction(
   TEACHERS_ACTIONS.FETCH_TEACHER_BY_ID_SUCCESS,
-  props<{ actionType: keyof TeacherActions, teacher: TeacherResponse, hasAssociatedGrades: boolean }>()
+  props<{ actionType?: keyof TeacherActions, teacher: TeacherResponse, hasAssociatedGrades: boolean }>()
 );
 
 export const fetchTeachersBySubjectAction = createAction(
