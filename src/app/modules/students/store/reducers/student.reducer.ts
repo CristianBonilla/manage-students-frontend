@@ -21,6 +21,7 @@ import {
   updateStudentFailureAction,
   updateStudentSuccessAction
 } from '@modules/students/store/actions/student.actions';
+import { addAndGetStudents, deleteAndGetStudents, getStudentsOrganized, updateAndGetStudents } from '@modules/students/utils/student.util';
 import { Action, createReducer, on } from '@ngrx/store';
 import { ServiceError } from 'src/app/models/service-error';
 
@@ -79,6 +80,7 @@ const studentsReducer = createReducer(
   })),
   on(addStudentSuccessAction, (state, { student }) => ({
     ...state,
+    students: addAndGetStudents(student, state.students!),
     studentSelected: {
       student,
       hasAssociatedGrades: null
@@ -95,6 +97,7 @@ const studentsReducer = createReducer(
   })),
   on(updateStudentSuccessAction, (state, { student }) => ({
     ...state,
+    students: updateAndGetStudents(student, state.students!),
     studentSelected: {
       student,
       hasAssociatedGrades: student.studentId === state.studentSelected?.student.studentId
@@ -113,6 +116,7 @@ const studentsReducer = createReducer(
   })),
   on(deleteStudentSuccessAction, (state, { student }) => ({
     ...state,
+    students: deleteAndGetStudents(student, state.students!),
     studentSelected: {
       student,
       hasAssociatedGrades: student.studentId === state.studentSelected?.student.studentId
@@ -132,7 +136,7 @@ const studentsReducer = createReducer(
   })),
   on(fetchStudentsSuccessAction, (state, { students }) => ({
     ...state,
-    students,
+    students: getStudentsOrganized(students),
     actions: updateAction(state, 'general', false)
   })),
   on(fetchStudentByIdAction, (state, { actionType }) => ({
@@ -161,7 +165,7 @@ const studentsReducer = createReducer(
   })),
   on(fetchStudentsExcludedByTeacherSuccessAction, (state, { actionType, students }) => ({
     ...state,
-    studentsExcluded: students,
+    studentsExcluded: getStudentsOrganized(students),
     actions: updateAction(state, actionType, false)
   })),
   on(clearStudentsExcludedByTeacherAction, state => ({

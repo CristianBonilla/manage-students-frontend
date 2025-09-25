@@ -100,11 +100,8 @@ export class StudentInfoComponent {
   #actionOnCompletion() {
     this.#studentInfoModal.closed
       .pipe(take(1))
-      .subscribe(state => {
+      .subscribe(_state => {
         this.#textFieldProvider.focus();
-        if (state === StudentOperation.INFO) {
-          this.#store.dispatch(fetchStudentsAction());
-        }
       });
     this.#studentInfoModal.hidden
       .pipe(take(1))

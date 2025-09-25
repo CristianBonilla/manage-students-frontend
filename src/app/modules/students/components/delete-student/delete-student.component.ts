@@ -123,11 +123,8 @@ export class DeleteStudentComponent {
   #actionOnCompletion() {
     this.#deleteStudentModal.closed
       .pipe(take(1))
-      .subscribe(state => {
+      .subscribe(_state => {
         this.#textFieldProvider.focus();
-        if (state === StudentOperation.DELETED) {
-          this.#store.dispatch(fetchStudentsAction());
-        }
       });
     this.#deleteStudentModal.hidden
       .pipe(take(1))

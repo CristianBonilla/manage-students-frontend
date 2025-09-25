@@ -109,11 +109,8 @@ export class CreateStudentComponent implements AfterViewInit {
   #actionOnCompletion() {
     this.#createStudentModal.closed
       .pipe(take(1))
-      .subscribe(state => {
+      .subscribe(_state => {
         this.#textFieldProvider.focus();
-        if (state === StudentOperation.CREATED) {
-          this.#store.dispatch(fetchStudentsAction());
-        }
       });
     this.#createStudentModal.hidden
       .pipe(take(1))

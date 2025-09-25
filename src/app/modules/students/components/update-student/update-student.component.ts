@@ -174,11 +174,8 @@ export class UpdateStudentComponent implements OnInit, AfterViewInit {
   #actionOnCompletion() {
     this.#updateStudentModal.closed
       .pipe(take(1))
-      .subscribe(state => {
+      .subscribe(_state => {
         this.#textFieldProvider.focus();
-        if (state === StudentOperation.UPDATED) {
-          this.#store.dispatch(fetchStudentsAction());
-        }
       });
     this.#updateStudentModal.hidden
       .pipe(take(1))

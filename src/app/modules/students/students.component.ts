@@ -57,7 +57,6 @@ export class StudentsComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
           this.textControl.disable();
         }
-        this.textControl.patchValue('');
       });
     this.textSubscription = this.textControl.valueChanges
       .pipe(startWith(''))
