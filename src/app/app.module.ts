@@ -36,7 +36,8 @@ import { environment } from 'src/environments/environment';
     EffectsModule.forRoot([]),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
-      preventDuplicates: true
+      preventDuplicates: true,
+      progressBar: true
     })
   ],
   providers: [],

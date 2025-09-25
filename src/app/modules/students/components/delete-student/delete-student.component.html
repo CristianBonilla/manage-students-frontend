@@ -5,11 +5,7 @@
         <input type="hidden" id="student-id" class="form-control" [value]="studentId">
         <div class="card bg-light border-light">
           <div class="card-body">
-            <p class="text-center text-muted h5 mb-0">El estudiante con número de identificación <strong>{{ student.student.documentNumber }}...</strong></p>
-            <div class="d-flex align-items-center justify-content-center gap-1" *ngIf="student.hasAssociatedGrades === true">
-              <fa-icon class="text-success" [icon]="['fas', 'check-circle']" size="lg"></fa-icon>
-              <span class="text-muted h5 my-1">Tiene calificaciones asociadas</span>
-            </div>
+            <p class="text-center text-muted h5 mb-0">El estudiante <strong>{{ student.student.firstname }} {{ student.student.lastname }}</strong> con número de identificación <strong>{{ student.student.documentNumber }}</strong></p>
             <p class="text-center text-muted h5 mb-0">¿Desea eliminarlo?</p>
           </div>
         </div>

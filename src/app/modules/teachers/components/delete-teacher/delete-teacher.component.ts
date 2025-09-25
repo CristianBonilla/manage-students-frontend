@@ -70,6 +70,16 @@ export class DeleteTeacherComponent implements OnInit, AfterViewInit {
 
   deleteTeacher() {
     const { documentNumber } = this.teacher.teacher;
+    if (this.teacher.hasAssociatedGrades) {
+      this.#toastr.warning(
+        'El profesor tiene calificaciones asociadas',
+        'No se puede eliminar el profesor', {
+          positionClass: 'toast-top-center'
+        }
+      );
+
+      return;
+    }
     this.#store.dispatch(deleteTeacherAction({ teacherId: this.teacherId }));
     this.deleteActionType$
       .pipe(

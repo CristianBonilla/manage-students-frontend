@@ -70,6 +70,16 @@ export class DeleteStudentComponent {
 
   deleteStudent() {
     const { documentNumber } = this.student.student;
+    if (this.student.hasAssociatedGrades) {
+      this.#toastr.warning(
+        'El estudiante tiene calificaciones asociadas',
+        'No se puede eliminar el estudiante', {
+          positionClass: 'toast-top-center'
+        }
+      );
+
+      return;
+    }
     this.#store.dispatch(deleteStudentAction({ studentId: this.studentId }));
     this.deleteActionType$
       .pipe(
