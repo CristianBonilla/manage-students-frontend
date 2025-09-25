@@ -1,20 +1,23 @@
 <div class="container-fluid px-0 px-sm-2 px-lg-3 padding-transition">
   <div class="table-container">
-    <div class="bg-dark">
-      <h4 class="text-light my-1 my-sm-0 px-3 pb-2 pt-3">Profesores</h4>
-      <div class="d-sm-flex justify-content-between align-items-center px-3 pb-3 pt-2">
-        <form autocomplete="off" spellcheck="false" [ngStyle]="{ 'max-width.px': 300, 'width.%': 100 }">
-          <input type="text" id="search-teachers" class="form-control focus-ring focus-ring-dark"
-            placeholder="Buscar profesores..."
-            [formControl]="textControl" #text />
-        </form>
-        <a type="button" class="btn btn-outline-light mt-2 mb-1 my-sm-0" [routerLink]="ROUTES.CREATE">
-          <fa-icon [icon]="['fas', 'plus-circle']" size="lg"></fa-icon>
-          Nuevo profesor
-        </a>
-      </div>
-    </div>
     <ng-container *ngIf="generalActionType$ | async as action">
+      <div class="bg-dark">
+        <div class="d-sm-flex justify-content-between align-items-center">
+          <h4 class="text-light my-1 my-sm-0 px-3 pb-2 pt-3">Profesores</h4>
+          <p class="text-light fst-italic px-3 pb-sm-2 pt-sm-3 mb-0" *ngIf="!action.loading">Hay <strong>{{ (teachersLength$ | async) }}</strong> profesores</p>
+        </div>
+        <div class="d-sm-flex justify-content-between align-items-center px-3 pb-3 pt-2">
+          <form autocomplete="off" spellcheck="false" [ngStyle]="{ 'max-width.px': 300, 'width.%': 100 }">
+            <input type="text" id="search-teachers" class="form-control focus-ring focus-ring-dark"
+              placeholder="Buscar profesores..."
+              [formControl]="textControl" #text />
+          </form>
+          <a type="button" class="btn btn-outline-light mt-2 mb-1 my-sm-0" [routerLink]="ROUTES.CREATE">
+            <fa-icon [icon]="['fas', 'plus-circle']" size="lg"></fa-icon>
+            Nuevo profesor
+          </a>
+        </div>
+      </div>
       <overlay-scrollbars class="table-responsive-sm" [defer]="true" [options]="scrollbarOptions">
         <table class="table table-bordered table-striped">
           <ng-container *ngIf="(action.loading === false || action.error === null) && (teachers$ | async) !== null; else loadingTeachers">
