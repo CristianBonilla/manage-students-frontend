@@ -2,8 +2,8 @@ import { Location } from '@angular/common';
 import { AfterViewInit, Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { GradesState } from '@modules/grades/models/grade-state';
-import { GradeOperation, GradeResponseExtended } from '@modules/grades/models/grade.model';
-import { fetchGradeByIdAction, fetchGradesAction } from '@modules/grades/store/actions/grade.actions';
+import { GradeResponseExtended } from '@modules/grades/models/grade.model';
+import { fetchGradeByIdAction } from '@modules/grades/store/actions/grade.actions';
 import { getActionSelector, getGradeSelector } from '@modules/grades/store/selectors/grade.selectors';
 import { SUBJECT_NAMES_SELECT } from '@modules/teachers/constants/teacher.constants';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -107,11 +107,8 @@ export class GradeInfoComponent implements OnInit, AfterViewInit {
   #actionOnCompletion() {
     this.#gradeInfoModal.closed
       .pipe(take(1))
-      .subscribe(state => {
+      .subscribe(_state => {
         this.#textFieldProvider.focus();
-        if (state === GradeOperation.INFO) {
-          this.#store.dispatch(fetchGradesAction());
-        }
       });
     this.#gradeInfoModal.hidden
       .pipe(take(1))

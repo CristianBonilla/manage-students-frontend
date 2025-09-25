@@ -1,5 +1,5 @@
 import { TeacherActions, TeachersState } from '@modules/teachers/models/teacher-state';
-import { addTeacherAction, addTeacherFailureAction, addTeacherSuccessAction, clearTeachersBySubjectAction, clearTeacherSelectedAction, deleteTeacherAction, deleteTeacherFailureAction, deleteTeacherSuccessAction, fetchTeacherByIdAction, fetchTeacherByIdFailureAction, fetchTeacherByIdSuccessAction, fetchTeachersAction, fetchTeachersBySubjectAction, fetchTeachersBySubjectFailureAction, fetchTeachersBySubjectSuccessAction, fetchTeachersFailureAction, fetchTeachersSuccessAction, updateTeacherAction, updateTeacherFailureAction, updateTeacherSuccessAction } from '@modules/teachers/store/actions/teacher.actions';
+import { addTeacherAction, addTeacherFailureAction, addTeacherSuccessAction, clearTeachersBySubjectAction, deleteTeacherAction, deleteTeacherFailureAction, deleteTeacherSuccessAction, fetchTeacherByIdAction, fetchTeacherByIdFailureAction, fetchTeacherByIdSuccessAction, fetchTeachersAction, fetchTeachersBySubjectAction, fetchTeachersBySubjectFailureAction, fetchTeachersBySubjectSuccessAction, fetchTeachersFailureAction, fetchTeachersSuccessAction, updateTeacherAction, updateTeacherFailureAction, updateTeacherSuccessAction } from '@modules/teachers/store/actions/teacher.actions';
 import { addAndGetTeachers, deleteAndGetTeachers, getTeachersOrganized, updateAndGetTeachers } from '@modules/teachers/utils/teacher.util';
 import { Action, createReducer, on } from '@ngrx/store';
 import { ServiceError } from 'src/app/models/service-error';
@@ -150,10 +150,6 @@ const teachersReducer = createReducer(
   on(clearTeachersBySubjectAction, state => ({
     ...state,
     teachersBySubject: null
-  })),
-  on(clearTeacherSelectedAction, state => ({
-    ...state,
-    teacherSelected: null
   }))
 );
 

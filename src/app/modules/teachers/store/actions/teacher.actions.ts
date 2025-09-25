@@ -24,7 +24,6 @@ export enum TEACHERS_ACTIONS {
   FETCH_TEACHERS_BY_SUBJECT_FAILURE = '[Teachers/API] Fetch Teachers By Subject Failure',
   FETCH_TEACHERS_BY_SUBJECT_SUCCESS = '[Teachers/API] Fetch Teachers By Subject Success',
   CLEAR_TEACHERS_BY_SUBJECT = '[Teachers/Store] Clear Teachers By Subject',
-  CLEAR_TEACHER_SELECTED = '[Teachers/Store] Clear Teacher Selected'
 }
 
 export const addTeacherAction = createAction(
@@ -103,5 +102,3 @@ export const fetchTeachersBySubjectSuccessAction = createAction(
 );
 
 export const clearTeachersBySubjectAction = createAction(TEACHERS_ACTIONS.CLEAR_TEACHERS_BY_SUBJECT);
-
-export const clearTeacherSelectedAction = createAction(TEACHERS_ACTIONS.CLEAR_TEACHER_SELECTED);

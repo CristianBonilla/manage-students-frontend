@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { GradesState } from '@modules/grades/models/grade-state';
 import { GradeOperation, GradeRequest, GradeResponseExtended } from '@modules/grades/models/grade.model';
-import { fetchGradeByIdAction, fetchGradesAction, updateGradeAction } from '@modules/grades/store/actions/grade.actions';
+import { fetchGradeByIdAction, updateGradeAction } from '@modules/grades/store/actions/grade.actions';
 import { getActionSelector, getGradeSelector } from '@modules/grades/store/selectors/grade.selectors';
 import { fetchStudentByIdAction } from '@modules/students/store/actions/student.actions';
 import { SUBJECT_NAMES_SELECT } from '@modules/teachers/constants/teacher.constants';
@@ -174,7 +174,6 @@ export class UpdateGradeComponent implements OnInit {
         if (state === GradeOperation.UPDATED) {
           this.#store.dispatch(fetchStudentByIdAction({ studentId: this.grade.studentId }));
           this.#store.dispatch(fetchTeacherByIdAction({ teacherId: this.grade.teacherId }));
-          this.#store.dispatch(fetchGradesAction());
         }
       });
     this.#updateGradeModal.hidden

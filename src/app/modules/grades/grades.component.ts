@@ -57,7 +57,6 @@ export class GradesComponent implements OnInit, OnDestroy {
         } else {
           this.textControl.disable();
         }
-        this.textControl.patchValue('');
       });
     this.textSubscription = this.textControl.valueChanges
       .pipe(startWith(''))

@@ -3,10 +3,10 @@ import { AfterViewInit, Component, inject, OnInit, TemplateRef, ViewChild } from
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { GradesState } from '@modules/grades/models/grade-state';
 import { GradeOperation, GradeResponseExtended } from '@modules/grades/models/grade.model';
-import { deleteGradeAction, fetchGradeByIdAction, fetchGradesAction } from '@modules/grades/store/actions/grade.actions';
+import { deleteGradeAction, fetchGradeByIdAction } from '@modules/grades/store/actions/grade.actions';
 import { getActionSelector, getGradeSelector } from '@modules/grades/store/selectors/grade.selectors';
-import { clearStudentSelectedAction } from '@modules/students/store/actions/student.actions';
-import { clearTeacherSelectedAction } from '@modules/teachers/store/actions/teacher.actions';
+import { fetchStudentByIdAction } from '@modules/students/store/actions/student.actions';
+import { fetchTeacherByIdAction } from '@modules/teachers/store/actions/teacher.actions';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TEXT_FIELD } from '@shared/providers/text-field.provider';
@@ -124,9 +124,8 @@ export class DeleteGradeComponent implements OnInit, AfterViewInit {
       .subscribe(state => {
         this.#textFieldProvider.focus();
         if (state === GradeOperation.DELETED) {
-          this.#store.dispatch(clearTeacherSelectedAction());
-          this.#store.dispatch(clearStudentSelectedAction());
-          this.#store.dispatch(fetchGradesAction());
+          this.#store.dispatch(fetchStudentByIdAction({ studentId: this.grade.studentId }));
+          this.#store.dispatch(fetchTeacherByIdAction({ teacherId: this.grade.teacherId }));
         }
       });
     this.#deleteGradeModal.hidden

@@ -5,7 +5,7 @@ import { NavigationStart, Router } from '@angular/router';
 import { selectRequired } from '@helpers/validators/select.validator';
 import { GradesState } from '@modules/grades/models/grade-state';
 import { GradeOperation, GradeRequest } from '@modules/grades/models/grade.model';
-import { addGradeAction, fetchGradesAction } from '@modules/grades/store/actions/grade.actions';
+import { addGradeAction } from '@modules/grades/store/actions/grade.actions';
 import { getActionSelector } from '@modules/grades/store/selectors/grade.selectors';
 import { StudentResponse } from '@modules/students/models/student.model';
 import { clearStudentsExcludedByTeacherAction, fetchStudentByIdAction, fetchStudentsExcludedByTeacherAction } from '@modules/students/store/actions/student.actions';
@@ -156,7 +156,6 @@ export class CreateGradeComponent implements AfterViewInit {
         if (state === GradeOperation.CREATED) {
           this.#store.dispatch(fetchStudentByIdAction({ studentId: this.studentControl.value }));
           this.#store.dispatch(fetchTeacherByIdAction({ teacherId: this.teacherControl.value }));
-          this.#store.dispatch(fetchGradesAction());
         }
       });
     this.#createGradeModal.hidden

@@ -16,6 +16,7 @@ import {
   updateGradeFailureAction,
   updateGradeSuccessAction
 } from '@modules/grades/store/actions/grade.actions';
+import { addAndGetGrades, deleteAndGetGrades, getGradesOrganized, updateAndGetGrades } from '@modules/grades/utils/grade.util';
 import { Action, createReducer, on } from '@ngrx/store';
 import { ServiceError } from 'src/app/models/service-error';
 
@@ -73,6 +74,7 @@ const gradesReducer = createReducer(
   })),
   on(addGradeSuccessAction, (state, { grade }) => ({
     ...state,
+    grades: addAndGetGrades(grade, state.grades!),
     gradeSelected: grade,
     actions: updateAction(state, 'create', false)
   })),
@@ -86,6 +88,7 @@ const gradesReducer = createReducer(
   })),
   on(updateGradeSuccessAction, (state, { grade }) => ({
     ...state,
+    grades: updateAndGetGrades(grade, state.grades!),
     gradeSelected: grade,
     actions: updateAction(state, 'update', false)
   })),
@@ -99,6 +102,7 @@ const gradesReducer = createReducer(
   })),
   on(deleteGradeSuccessAction, (state, { grade }) => ({
     ...state,
+    grades: deleteAndGetGrades(grade, state.grades!),
     gradeSelected: grade,
     actions: updateAction(state, 'delete', false)
   })),
@@ -113,7 +117,7 @@ const gradesReducer = createReducer(
   })),
   on(fetchGradesSuccessAction, (state, { grades }) => ({
     ...state,
-    grades,
+    grades: getGradesOrganized(grades),
     actions: updateAction(state, 'general', false)
   })),
   on(fetchGradeByIdAction, (state, { actionType }) => ({
