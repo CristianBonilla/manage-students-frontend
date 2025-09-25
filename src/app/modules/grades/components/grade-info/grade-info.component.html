@@ -2,7 +2,7 @@
   <ng-container *ngIf="infoActionType$ | async as action">
     <ng-container *ngIf="(loadingFetchGradeById$ | async) === false; else loading">
       <div class="modal-header">
-        <h4 class="modal-title fw-bold">Descripción del profesor</h4>
+        <h4 class="modal-title fw-bold">Descripción de la calificación</h4>
       </div>
       <div class="modal-body">
         <input type="hidden" id="grade-id" class="form-control" [value]="gradeId">

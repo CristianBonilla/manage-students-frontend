@@ -172,8 +172,8 @@ export class UpdateGradeComponent implements OnInit {
       .subscribe(state => {
         this.#textFieldProvider.focus();
         if (state === GradeOperation.UPDATED) {
-          this.#store.dispatch(fetchStudentByIdAction({ studentId: this.studentControl.value }));
-          this.#store.dispatch(fetchTeacherByIdAction({ teacherId: this.teacherControl.value }));
+          this.#store.dispatch(fetchStudentByIdAction({ studentId: this.grade.studentId }));
+          this.#store.dispatch(fetchTeacherByIdAction({ teacherId: this.grade.teacherId }));
           this.#store.dispatch(fetchGradesAction());
         }
       });

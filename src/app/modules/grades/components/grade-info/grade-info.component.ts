@@ -93,7 +93,7 @@ export class GradeInfoComponent implements OnInit, AfterViewInit {
         } else {
           this.#gradeInfoModal.close(null);
           this.#toastr.error(
-            'Se presento un error al obtener información del profesor',
+            'Se presento un error al obtener información de la calificación',
             getError(error!)
           );
         }
