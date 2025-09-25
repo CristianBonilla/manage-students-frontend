@@ -1,5 +1,6 @@
 import { TeacherActions, TeachersState } from '@modules/teachers/models/teacher-state';
 import { addTeacherAction, addTeacherFailureAction, addTeacherSuccessAction, clearTeachersBySubjectAction, clearTeacherSelectedAction, deleteTeacherAction, deleteTeacherFailureAction, deleteTeacherSuccessAction, fetchTeacherByIdAction, fetchTeacherByIdFailureAction, fetchTeacherByIdSuccessAction, fetchTeachersAction, fetchTeachersBySubjectAction, fetchTeachersBySubjectFailureAction, fetchTeachersBySubjectSuccessAction, fetchTeachersFailureAction, fetchTeachersSuccessAction, updateTeacherAction, updateTeacherFailureAction, updateTeacherSuccessAction } from '@modules/teachers/store/actions/teacher.actions';
+import { addAndGetTeachers, deleteAndGetTeachers, getTeachersOrganized, updateAndGetTeachers } from '@modules/teachers/utils/teacher.util';
 import { Action, createReducer, on } from '@ngrx/store';
 import { ServiceError } from 'src/app/models/service-error';
 
@@ -58,6 +59,7 @@ const teachersReducer = createReducer(
   })),
   on(addTeacherSuccessAction, (state, { teacher }) => ({
     ...state,
+    teachers: addAndGetTeachers(teacher, state.teachers!),
     teacherSelected: {
       teacher,
       hasAssociatedGrades: null
@@ -73,14 +75,15 @@ const teachersReducer = createReducer(
     actions: updateAction(state, 'update', false, error)
   })),
   on(updateTeacherSuccessAction, (state, { teacher }) => ({
-      ...state,
-      teacherSelected: {
-        teacher,
-        hasAssociatedGrades: teacher.teacherId === state.teacherSelected?.teacher.teacherId
-          ? state.teacherSelected.hasAssociatedGrades
-          : null
-      },
-      actions: updateAction(state, 'update', false)
+    ...state,
+    teachers: updateAndGetTeachers(teacher, state.teachers!),
+    teacherSelected: {
+      teacher,
+      hasAssociatedGrades: teacher.teacherId === state.teacherSelected?.teacher.teacherId
+        ? state.teacherSelected.hasAssociatedGrades
+        : null
+    },
+    actions: updateAction(state, 'update', false)
   })),
   on(deleteTeacherAction, state => ({
     ...state,
@@ -92,6 +95,7 @@ const teachersReducer = createReducer(
   })),
   on(deleteTeacherSuccessAction, (state, { teacher }) => ({
     ...state,
+    teachers: deleteAndGetTeachers(teacher, state.teachers!),
     teacherSelected: {
       teacher,
       hasAssociatedGrades: teacher.teacherId === state.teacherSelected?.teacher.teacherId
@@ -111,7 +115,7 @@ const teachersReducer = createReducer(
   })),
   on(fetchTeachersSuccessAction, (state, { teachers }) => ({
     ...state,
-    teachers,
+    teachers: getTeachersOrganized(teachers),
     actions: updateAction(state, 'general', false)
   })),
   on(fetchTeacherByIdAction, (state, { actionType }) => ({

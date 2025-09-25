@@ -3,13 +3,11 @@ import { AfterViewInit, Component, inject, OnInit, TemplateRef, ViewChild } from
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { SUBJECT_NAMES_SELECT } from '@modules/teachers/constants/teacher.constants';
 import { TeacherSelected, TeachersState } from '@modules/teachers/models/teacher-state';
-import { TeacherOperation } from '@modules/teachers/models/teacher.model';
-import { fetchTeacherByIdAction, fetchTeachersAction } from '@modules/teachers/store/actions/teacher.actions';
+import { fetchTeacherByIdAction } from '@modules/teachers/store/actions/teacher.actions';
 import { getActionSelector, getTeacherSelector } from '@modules/teachers/store/selectors/teacher.selectors';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TEXT_FIELD } from '@shared/providers/text-field.provider';
-import { SubjectNameRequiredSelectionValue } from '@shared/types/teachers.types';
 import { getError } from '@shared/utils/service-error.util';
 import { ToastrService } from 'ngx-toastr';
 import { filter, map, Observable, of, take, withLatestFrom } from 'rxjs';
@@ -108,11 +106,8 @@ export class TeacherInfoComponent implements OnInit, AfterViewInit {
   #actionOnCompletion() {
     this.#teacherInfoModal.closed
       .pipe(take(1))
-      .subscribe(state => {
+      .subscribe(_state => {
         this.#textFieldProvider.focus();
-        if (state === TeacherOperation.INFO) {
-          this.#store.dispatch(fetchTeachersAction());
-        }
       });
     this.#teacherInfoModal.hidden
       .pipe(take(1))

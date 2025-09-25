@@ -5,16 +5,14 @@ import { NavigationStart, Router } from '@angular/router';
 import { emailValidator, onlyLetters, onlyNumbers } from '@helpers/validators/formats.validator';
 import { selectRequired } from '@helpers/validators/select.validator';
 import { SUBJECT_NAMES_SELECT } from '@modules/teachers/constants/teacher.constants';
-import { SubjectName } from '@modules/teachers/enums/subject-name.enum';
 import { TeachersState } from '@modules/teachers/models/teacher-state';
 import { TeacherOperation, TeacherRequest } from '@modules/teachers/models/teacher.model';
-import { addTeacherAction, fetchTeachersAction } from '@modules/teachers/store/actions/teacher.actions';
+import { addTeacherAction } from '@modules/teachers/store/actions/teacher.actions';
 import { getActionSelector } from '@modules/teachers/store/selectors/teacher.selectors';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TEXT_FIELD } from '@shared/providers/text-field.provider';
-import { FormSelectOption } from '@shared/types/form.types';
-import { SubjectNameSelectionValue, SubjectNameRequiredSelectionValue } from '@shared/types/teachers.types';
+import { SubjectNameRequiredSelectionValue, SubjectNameSelectionValue } from '@shared/types/teachers.types';
 import { getError } from '@shared/utils/service-error.util';
 import { ToastrService } from 'ngx-toastr';
 import { filter, take, withLatestFrom } from 'rxjs';
@@ -122,11 +120,8 @@ export class CreateTeacherComponent implements AfterViewInit {
   #actionOnCompletion() {
     this.#createTeacherModal.closed
       .pipe(take(1))
-      .subscribe(state => {
+      .subscribe(_state => {
         this.#textFieldProvider.focus();
-        if (state === TeacherOperation.CREATED) {
-          this.#store.dispatch(fetchTeachersAction());
-        }
       });
     this.#createTeacherModal.hidden
       .pipe(take(1))

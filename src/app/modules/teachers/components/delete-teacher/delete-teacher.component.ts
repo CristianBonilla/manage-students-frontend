@@ -3,7 +3,7 @@ import { AfterViewInit, Component, inject, OnInit, TemplateRef, ViewChild } from
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { TeacherSelected, TeachersState } from '@modules/teachers/models/teacher-state';
 import { TeacherOperation } from '@modules/teachers/models/teacher.model';
-import { deleteTeacherAction, fetchTeacherByIdAction, fetchTeachersAction } from '@modules/teachers/store/actions/teacher.actions';
+import { deleteTeacherAction, fetchTeacherByIdAction } from '@modules/teachers/store/actions/teacher.actions';
 import { getActionSelector, getTeacherSelector } from '@modules/teachers/store/selectors/teacher.selectors';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -123,11 +123,8 @@ export class DeleteTeacherComponent implements OnInit, AfterViewInit {
   #actionOnCompletion() {
     this.#deleteTeacherModal.closed
       .pipe(take(1))
-      .subscribe(state => {
+      .subscribe(_state => {
         this.#textFieldProvider.focus();
-        if (state === TeacherOperation.DELETED) {
-          this.#store.dispatch(fetchTeachersAction());
-        }
       });
     this.#deleteTeacherModal.hidden
       .pipe(take(1))

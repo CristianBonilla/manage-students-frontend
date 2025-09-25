@@ -7,7 +7,7 @@ import { selectRequired } from '@helpers/validators/select.validator';
 import { SUBJECT_NAMES_SELECT } from '@modules/teachers/constants/teacher.constants';
 import { TeacherSelected, TeachersState } from '@modules/teachers/models/teacher-state';
 import { TeacherOperation, TeacherRequest } from '@modules/teachers/models/teacher.model';
-import { fetchTeacherByIdAction, fetchTeachersAction, updateTeacherAction } from '@modules/teachers/store/actions/teacher.actions';
+import { fetchTeacherByIdAction, updateTeacherAction } from '@modules/teachers/store/actions/teacher.actions';
 import { getActionSelector, getTeacherSelector } from '@modules/teachers/store/selectors/teacher.selectors';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -187,11 +187,8 @@ export class UpdateTeacherComponent implements OnInit, AfterViewInit {
   #actionOnCompletion() {
     this.#updateTeacherModal.closed
       .pipe(take(1))
-      .subscribe(state => {
+      .subscribe(_state => {
         this.#textFieldProvider.focus();
-        if (state === TeacherOperation.UPDATED) {
-          this.#store.dispatch(fetchTeachersAction());
-        }
       });
     this.#updateTeacherModal.hidden
       .pipe(take(1))
